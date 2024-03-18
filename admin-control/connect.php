@@ -1,6 +1,6 @@
 <?php
 
-     $dsn ='mysql:host=dom.test; dbname=shop' ;   //Data Source name
+     $dsn ='mysql:host=ecom.test; dbname=shop' ;   //Data Source name
      $user = 'root'; //the user to connect
      $pass = '12345678';  //password of this user
      $options = array(
