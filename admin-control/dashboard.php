@@ -8,7 +8,7 @@
       
                      include 'init.php';
                      echo "welcome";
-                     include $tpl . 'footer.php';
+                     include $tpl . 'footer.php'; 
 
               } else {
     

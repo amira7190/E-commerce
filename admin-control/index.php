@@ -17,7 +17,7 @@ include 'init.php';
 
       
        //Check If The USer Exist In Database
-       $stmt = $con->prepare("SELECT Username, Password FROM users WHERE Username = ? AND Password = ? AND GroupID = 1 ");
+       $stmt = $con->prepare("SELECT `Username`, `Password` FROM `shop`.`users` WHERE `Username` = ? AND `Password` = ? AND GroupID = 1 ");
 
        $stmt->execute(array($username , $hashedpass));
        $count=$stmt->rowCount();
@@ -28,7 +28,7 @@ include 'init.php';
             header('Location : dashboard.php'); //Redirect To Dashboard Page
             exit();
             
-            echo 'welcome' . $username;
+            echo 'welcome' . $username; 
 
        }
 
