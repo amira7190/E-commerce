@@ -1,11 +1,9 @@
 <?php
 session_start();
 $noNavbar = '';
-if (isset($_SESSION['Username'])){
-     echo 'welcome' . $_SESSION['Username'];
-}else{
-      echo " You Are Authorized To View This Page";
-}
+if(isset($_SESSION['Username'])){
+      header('Location: dashboard.php');
+  }
 include 'init.php';
 
 //check if user coming from HTTP POST REQUEST
@@ -14,6 +12,7 @@ include 'init.php';
        $username = $_POST['user'];
        $password = $_POST['pass'];
        $hashedPass= sha1($password);
+       //echo $username . ' ' . $hashedPass
 
       
        //Check If The USer Exist In Database
@@ -21,10 +20,11 @@ include 'init.php';
 
        $stmt->execute(array($username , $hashedpass));
        $count=$stmt->rowCount();
+       echo $count;
        
        //if count>0 this mean the database contain record about this username
        if ($count > 0){
-            $_SESSION['Username'] = $username; //register session name
+           $_SESSION['Username'] = $username; //register session name
             header('Location : dashboard.php'); //Redirect To Dashboard Page
             exit();
             
