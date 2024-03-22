@@ -14,6 +14,8 @@
 include $tpl . 'header.php';
 
 
+
+
 //Include Navbar On All pages Expect The One With $noNavbar Variable 
 if(!isset($noNavbar)) {include $tpl . 'navbar.php';}
 
