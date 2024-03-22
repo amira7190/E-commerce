@@ -5,9 +5,21 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="app-nav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
         <li class="nav-item">
-          <a class="nav-link" href="#">Categories</a>
+          <a class="nav-link" href="#"><?php  echo lang ('CATEGORIES') ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php  echo lang ('ITEMS') ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php  echo lang ('MEMBERS') ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php  echo lang ('STATISTICS') ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php  echo lang ('LOGS') ?></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
