@@ -4,12 +4,12 @@
            //   'MESSAGE' => 'welcome',
            // 'ADMIN' => 'administrator',
            //NAVBAR LINKS:
-           'HOME_ADMIN' => 'Home',
-           'CATEGORIES' => 'Categories',
-           'ITEMS' => 'Items',
-           'MEMBERS' => 'Members',
-           'STATISTICS' => 'Statistics',
-           'LOGS' => 'Logs', 
+           'HOME_ADMIN'        =>  'Home',
+           'CATEGORIES'        =>  'Categories',
+           'ITEMS'             =>  'Items',
+           'MEMBERS'           =>  'Members',
+           'STATISTICS'        =>  'Statistics',
+           'LOGS'              =>  'Logs', 
 
         );
         return $lang[$phrase];

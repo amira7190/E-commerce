@@ -2,6 +2,7 @@
 
 body{
     background-color: #f4f4f4;
+    font-size: 16px;
 }
 
 /*End Main Rulez*/
@@ -28,3 +29,33 @@ body{
 }
 
 /*End Login Form*/
+
+
+/*Start bootstrap edits */
+
+.navbar{
+    border-radius: 0;
+    margin-bottom: 0;
+}
+.nav > .li > a,
+.navbar-brand{
+    padding: 15px 12px;
+}
+
+.navbar-brand{
+    font-size: 1em;
+
+}
+
+.navbar-nav > li {
+    padding-left: 90px;
+}
+
+
+
+
+
+
+
+
+/*End bootstrap edits*/
