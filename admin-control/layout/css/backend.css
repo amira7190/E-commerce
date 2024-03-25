@@ -36,6 +36,7 @@ body{
 .navbar{
     border-radius: 0;
     margin-bottom: 0;
+    background-color: black;
 }
 .nav > .li > a,
 .navbar-brand{
@@ -46,6 +47,14 @@ body{
     font-size: 1em;
 
 }
+.navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: .25rem;
+    transition: box-shadow .15s ease-in-out;}
 
 .navbar-nav > li {
     padding-left: 90px;
