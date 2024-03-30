@@ -17,16 +17,31 @@ $pageTitle = 'Members';
                 //manage page
             } elseif ($do == 'Edit'){//Edit Page
               // echo 'welcome to edit your id is' . $_GET['userid'];
-              ?>
-              <h1 class = "text-center  "> Edit Member</h1>
+                       
+                         //check if Get Request Userid Is Numeric & Get The Integer Value Of It
+                       $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
 
-              <div class="container">
+                           //echo $userid;
+
+                           //Select All Data Depend On Thid ID 
+                          $stmt = $con->prepare("SELECT * FROM `users` WHERE  `UserID` = ?  LIMIT 1 ");
+                           
+                          //Execute Query
+                        $stmt->execute(array($userid));
+                          //FetCH THe Data
+                        $row = $stmt->fetch();
+                        //The Row Count
+                       $count=$stmt->rowCount();
+                        //If There Such Id Show The Form
+                       if($stmt->rowCount() > 0){ ?>
+                    <h1 class = "text-center  "> Edit Member</h1>
+                <div class="container">
                  <div class="form-horizontal">
                     <!-- Start username filed -->
                       <div class="form-group form-group-lg">
                         <label class = "col-sm-2 control-label"> Username</label>
                         <div class="col-sm-10">
-                          <input type="text" name="username" class="form-control" autocomplete="off" />
+                          <input type="text" name="username" value = " <?php echo $row['Username']  ?> " class="form-control" autocomplete="off" />
                         </div>
                       </div>
                     <!-- end username filed -->
@@ -42,15 +57,15 @@ $pageTitle = 'Members';
                     <div class="form-group form-group-lg">
                         <label class = "col-sm-2 control-label"> Email</label>
                         <div class="col-sm-10">
-                          <input type="email" name="email" class="form-control" />
+                          <input type="email" name="email" value = " <?php echo $row['Email']  ?> " class="form-control" />
                         </div>
-                      </div>
+                    </div>
                     <!-- end email filed -->
                     <!-- Start fullname filed -->
                     <div class="form-group form-group-lg">
                         <label class = "col-sm-2 control-label"> Full Name</label>
                         <div class="col-sm-10">
-                          <input type="text" name="full" class="form-control" />
+                          <input type="text" name="full" value = " <?php echo $row['FullName']  ?> " class="form-control" />
                         </div>
                       </div>
                     <!-- end fullname filed -->
@@ -65,7 +80,12 @@ $pageTitle = 'Members';
 
               </div>
             
-            <?php          
+            <?php  
+            }
+            //If There is No Such ID Show Error Message 
+            else {
+                        echo "Theres Is No Such ID";
+                       }       
             
 
             }
