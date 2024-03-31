@@ -85,7 +85,7 @@ $pageTitle = 'Members';
                                                </div>
                                          </div>
                                               <!-- end submit filed -->
-
+                       </div>
 
                     </form>
 
@@ -109,7 +109,7 @@ $pageTitle = 'Members';
                         $email = $_POST['email'];
                         $name  = $_POST['full'];
 
-                        // echo $id . $user .$email . $name ;
+                         echo $id . $user .$email . $name ;
                         /*UPdate  the database with this info*/
 
                     //    $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ? WHERE UserID = ? ");
