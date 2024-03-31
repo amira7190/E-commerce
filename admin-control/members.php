@@ -36,7 +36,8 @@ $pageTitle = 'Members';
                        if($stmt->rowCount() > 0){ ?>
                     <h1 class = "text-center  "> Edit Member</h1>
                 <div class="container">
-                 <div class="form-horizontal">
+                 <div class="form-horizontal" action ="?do = update" method ="POST">
+                  <input type="hidden" name="userid" value="<?php echo $userid ?>"/>
                     <!-- Start username filed -->
                       <div class="form-group form-group-lg">
                         <label class = "col-sm-2 control-label"> Username</label>
@@ -88,7 +89,35 @@ $pageTitle = 'Members';
                        }       
             
 
-            }
+      } elseif ( $do == 'update'){ //update page
+
+                    echo "<h1 class = 'text-center'> update Member</h1>";
+
+
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                         //Get variable from the form
+                        $id    = $_POST['userid'];
+                        $user  = $_POST['username'];
+                        $email = $_POST['email'];
+                        $name  = $_POST['full'];
+
+                        // echo $id . $user .$email . $name ;
+                        /*UPdate  the database with this info*/
+
+                        $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ? WHERE UserID = ? ");
+                        $stmt->execute(array($user , $email , $name , $id));
+
+                        //Echo success message
+                        echo $stmt->rowCount() . 'Record Updated';
+
+                     }else{
+                              echo 'you cant Browse this page directly';
+                          }            
+
+
+
+
+          }
 
 
 
