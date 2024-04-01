@@ -36,7 +36,7 @@ $pageTitle = 'Members';
                        if($stmt->rowCount() > 0){ ?>
                     <h1 class = "text-center  "> Edit Member</h1>
                 <div class="container">
-                   <form class="form-horizontal" action ="?do = update" method ="POST">
+                   <form class="form-horizontal" action ="?do=update" method ="POST">
                                       <input type="hidden" name="userid" value="<?php echo $userid ?>"/>
                                            <!-- Start username filed -->
                                       <div class="form-group form-group-lg">
@@ -52,7 +52,8 @@ $pageTitle = 'Members';
                                        <div class="form-group form-group-lg">
                                            <label class = "col-sm-2 control-label"> Password</label>
                                            <div class="col-sm-10">
-                                                <input type="password" name="password" class="form-control"  autocomplete="new-password"/>
+                                                <input type="hidden" name="oldpassword" value= " <?php echo $row['Password']  ?> "/>
+                                                <input type="password" name="newpassword" class="form-control"  autocomplete="new-password"/>
                                            </div>
                                         </div>
                                               <!-- end password filed -->
@@ -109,14 +110,22 @@ $pageTitle = 'Members';
                         $email = $_POST['email'];
                         $name  = $_POST['full'];
 
-                         echo $id . $user .$email . $name ;
+                        //password trick
+                        $pass = '';
+                        if(empty($_POST['newpassword'])){
+                            $pass = $_POST['oldpassword'];
+                        }else{
+                          $pass =sha1($_POST['newpassword']);
+                        }
+
+                        /// echo $id . $user .$email . $name ;
                         /*UPdate  the database with this info*/
 
-                    //    $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ? WHERE UserID = ? ");
-                    //    $stmt->execute(array($user , $email , $name , $id));
+                        $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?  WHERE UserID = ? ");
+                        $stmt->execute(array($user , $email , $name ,  $pass , $id));
 
                         //Echo success message
-                     //   echo $stmt->rowCount() . 'Record Updated';
+                       echo $stmt->rowCount() . 'Record Updated';
 
                      }else{
                               echo 'you cant Browse this page directly';
