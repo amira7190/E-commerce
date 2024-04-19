@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * manage member page
  * you can add |edit | delete members from here
@@ -35,14 +35,14 @@ $pageTitle = 'Members';
                         //If There Such Id Show The Form
                        if($stmt->rowCount() > 0){ ?>
                     <h1 class = "text-center  "> Edit Member</h1>
-                <div class="container">
-                   <form class="form-horizontal" action ="?do=update" method ="POST">
+                    <div class="container">
+                          <form class="form-horizontal" action ="?do=update" method ="POST">
                                       <input type="hidden" name="userid" value="<?php echo $userid ?>"/>
                                            <!-- Start username filed -->
                                       <div class="form-group form-group-lg">
                                           <label class = "col-sm-2 control-label"> Username</label>
                                            <div class="col-sm-10">
-                                               <input type="text" name="username" value = " <?php echo $row['Username']  ?> " class="form-control" autocomplete="off" />
+                                               <input type="text" name="username" value = " <?php echo $row['Username']  ?> " class="form-control" autocomplete="off"  required = "required"/>
                                             </div>
                                        </div>
                                             <!-- end username filed -->
@@ -63,7 +63,7 @@ $pageTitle = 'Members';
                                         <div class="form-group form-group-lg">
                                             <label class = "col-sm-2 control-label"> Email</label>
                                             <div class="col-sm-10">
-                                               <input type="email" name="email" value = " <?php echo $row['Email']  ?> " class="form-control" />
+                                               <input type="email" name="email" value = " <?php echo $row['Email']  ?> " class="form-control"  required = "required"/>
                                             </div>
                                         </div>
                                              <!-- end email filed -->
@@ -73,7 +73,7 @@ $pageTitle = 'Members';
                                         <div class="form-group form-group-lg">
                                             <label class = "col-sm-2 control-label"> Full Name</label>
                                             <div class="col-sm-10">
-                                                   <input type="text" name="full" value = " <?php echo $row['FullName']  ?> " class="form-control" />
+                                                   <input type="text" name="full" value = " <?php echo $row['FullName']  ?> " class="form-control"  required = "required"/>
                                             </div>
                                         </div>
                                               <!-- end fullname filed -->
@@ -103,6 +103,7 @@ $pageTitle = 'Members';
       } elseif ( $do == 'update'){ //update page
 
                     echo "<h1 class = 'text-center'> update Member</h1>";
+                    echo "<div class = 'container'> ";
                     if($_SERVER['REQUEST_METHOD'] == 'POST'){
                          //Get variable from the form
                         $id    = $_POST['userid'];
@@ -111,25 +112,47 @@ $pageTitle = 'Members';
                         $name  = $_POST['full'];
 
                         //password trick
-                        $pass = '';
-                        if(empty($_POST['newpassword'])){
-                            $pass = $_POST['oldpassword'];
-                        }else{
-                          $pass =sha1($_POST['newpassword']);
+                        //condition ? true : false ;
+                        $pass = empty($_POST['newpassword']) ? $_POST['oldpassword'] :  sha1($_POST['newpassword']) ;
+                        
+                        //Validate The Form
+                        $formErrors = array();
+
+                        if(strlen($user) < 4){
+                          $formErrors[] = '<div class = "alert alert-danger"> username cant be less than <strong>4 char</strong></div>';
                         }
 
-                        /// echo $id . $user .$email . $name ;
-                        /*UPdate  the database with this info*/
+                        if(empty($user)){
+                          $formErrors[] = '<div class = "alert alert-danger"> User name Cant Be <strong>Empty</strong></div>';
+                        }
+                        if(empty($name)){
+                          $formErrors[] = '<div class = "alert alert-danger"> Full name Cant Be <strong>Empty</strong></div>';
+                        }
+                        if(empty($email)){
+                          $formErrors[] = '<div class = "alert alert-danger"> Email Cant Be <strong>Empty</strong></div>';
+                        }
+                        foreach($formErrors as $error){
+                          echo $error ;
+                        }
 
-                        $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?  WHERE UserID = ? ");
-                        $stmt->execute(array($user , $email , $name ,  $pass , $id));
 
-                        //Echo success message
-                       echo $stmt->rowCount() . 'Record Updated';
+                        //check if theres no error proceed the update operation 
+                        if (empty ($formErrors)){
+                            
+                              //UPdate  the database with this info//
+
+                               $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?  WHERE UserID = ? ");
+                               $stmt->execute(array($user , $email , $name ,  $pass , $id));
+
+                               //Echo success message
+                                echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
+
+                        }
 
                      }else{
                               echo 'you cant Browse this page directly';
-                          }            
+                          } 
+                      echo "</div>";           
 
 
 
@@ -143,7 +166,7 @@ $pageTitle = 'Members';
 
             include $tpl . 'footer.php'; 
 
-     } else {
+        }else {
 
              header("Location: index.php");
 

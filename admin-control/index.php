@@ -13,7 +13,7 @@ include 'init.php';
        $username = $_POST['user'];
        $password = $_POST['pass'];
        $hashedPass= sha1($password);
-       //echo $username . ' ' . $hashedPass
+      // echo  $password ;
 
       
        //Check If The USer Exist In Database
@@ -34,6 +34,7 @@ include 'init.php';
        $stmt->execute(array($username , $hashedPass));
        $row = $stmt->fetch();
        $count=$stmt->rowCount();
+       echo $count;
        
        
        //if count>0 this mean the database contain record about this username
@@ -43,7 +44,7 @@ include 'init.php';
             header('Location : dashboard.php'); //Redirect To Dashboard Page
             exit();
             
-            echo 'welcome' . $username; 
+           // echo 'welcome' . $username; 
 
        }
 
