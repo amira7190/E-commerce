@@ -37,7 +37,7 @@ $pageTitle = 'Members';
                                  <div class="form-group form-group-lg">
                                      <label class = "col-sm-2 control-label"> Password</label>
                                      <div class="col-sm-10">
-                                          <input type="password" name="password" class="form-control"  autocomplete="new-password" placeholder = ""/>
+                                          <input type="password" name="password" class="form-control"  autocomplete="new-password" required = "required" placeholder = ""/>
                                      </div>
                                   </div>
                                         <!-- end password filed -->
