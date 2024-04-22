@@ -77,7 +77,13 @@ $pageTitle = 'Members';
         </div> 
                         
 
-      <?php      } elseif ($do == 'Edit'){//Edit Page
+      <?php 
+            }   elseif ($do == 'Insert') {
+               //Insert Member Page
+               echo $_POST['username'] . $_POST['password'] . $_POST['email'] . $_POST['full'];
+
+            
+     } elseif ($do == 'Edit'){//Edit Page
               // echo 'welcome to edit your id is' . $_GET['userid'];
                        
                          //check if Get Request Userid Is Numeric & Get The Integer Value Of It
