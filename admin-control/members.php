@@ -13,12 +13,93 @@ $pageTitle = 'Members';
             include 'init.php';
 
             $do = isset($_GET['do']) ? $_GET['do'] : 'Manage';
-            if($do == 'Manage'){ //manage page
+            if($do == 'Manage'){ //manage page ?> 
+                     
+                     <h1 class = "text-center  "> Manage members</h1>
+                     <div class="container">
+                                <div class="table-responsive">
+                                      <table class=" main-table text-center  table table-bordered">
+                                        <tr class="bg-secondary text-light">
+                                             <td>#ID</td>
+                                             <td>Username</td>
+                                             <td>Email</td>
+                                             <td>Full Name</td>
+                                             <td>Registed Date</td>
+                                             <td>Control</td>
+                                        </tr>
+                                        <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td>
+                                                  <a href="#" class="btn btn-success">Edit</a>
+                                                  <a href="#" class="btn btn-danger">Delete</a>
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td>
+                                                  <a href="#" class="btn btn-success">Edit</a>
+                                                  <a href="#" class="btn btn-danger">Delete</a>
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td>
+                                                  <a href="#" class="btn btn-success">Edit</a>
+                                                  <a href="#" class="btn btn-danger">Delete</a> 
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td>
+                                                  <a href="#" class="btn btn-success">Edit</a>
+                                                  <a href="#" class="btn btn-danger">Delete</a>
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td>
+                                                  <a href="#" class="btn btn-success">Edit</a>
+                                                  <a href="#" class="btn btn-danger">Delete</a> 
+                                             </td>
+                                        </tr>
+                                      </table>
+
+                              </div>
+                              <a href="members.php?do=Add" class ="btn btn-primary"> <i class ="fa fa-plus"></i>Add New Member</a>
+                     </div>
+
+                       
+
+
+
+
+
+
+
+
                  
-                          echo "welcome to manage member ";
-                          echo "</br>";
-                          echo' <a href = "members.php?do=Add"> add new member</a>';
-            } elseif ($do == 'Add'){ ?>   <!--Add Members Page-->
+                          
+          <?php  } elseif ($do == 'Add'){ ?>   <!--Add Members Page-->
                         
               <h1 class = "text-center  "> Add New Member</h1>
               <div class="container">
@@ -80,9 +161,71 @@ $pageTitle = 'Members';
       <?php 
             }   elseif ($do == 'Insert') {
                //Insert Member Page
-               echo $_POST['username'] . $_POST['password'] . $_POST['email'] . $_POST['full'];
+        
+                          if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            
+                              echo "<h1 class = 'text-center'> update Member</h1>";
+                              echo "<div class = 'container'> ";
+                                  //Get variable from the form
+                                  $id    = $_POST['userid'];
+                                  $user  = $_POST['username'];
+                                  $pass  = $_POST['password'];
+                                  $email = $_POST['email'];
+                                  $name  = $_POST['full'];
+                                  $hashPass = sha1($_POST['password']);
+
+                   
+                                  //Validate The Form
+                                  $formErrors = array();
+
+                                        if(strlen($user) < 4){
+                                               $formErrors[] = ' username cant be less than <strong>4 char</strong>';
+                                        }
+
+                                      if(empty($user)){
+                                             $formErrors[] = 'User name Cant Be <strong>Empty</strong>';
+                                        }
+                                        if(empty($pass)){
+                                             $formErrors[] = 'User pass Cant Be <strong>Empty</strong>';
+                                        }
+                                      if(empty($name)){
+                                             $formErrors[] = 'Full name Cant Be <strong>Empty</strong>';
+                                        }
+                                     if(empty($email)){
+                                              $formErrors[] = 'Email Cant Be <strong>Empty</strong>';
+                                        }
+                                    foreach($formErrors as $error){
+                                             echo $error ;
+                                        }
+
+
+                                        //check if theres no error proceed the update operation 
+                                     if (empty ($formErrors)){
+                       
+                                              //Insert user info in database
+
+                                         $stmt = $con->prepare("INSERT INTO 
+                                                                       users(Username, Password, Email, Fullname)
+                                                                       VALUES(:zuser, :zpass, :zmail, :zname) ");
+                                        $stmt->execute(array(
+                                             'zuser' => $user,
+                                             'zpass' => $hashPass,
+                                             'zmail' => $email,
+                                             'zname' => $name
+
+
+                                        ));
+                 
+                                              //Echo success messag
+                                             echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Inserted Updated </div>';
+
+                                        }
+
+                              }else{
+                                echo 'you cant Browse this page directly';
+                              } 
+                               echo "</div>";           
+
      } elseif ($do == 'Edit'){//Edit Page
               // echo 'welcome to edit your id is' . $_GET['userid'];
                        

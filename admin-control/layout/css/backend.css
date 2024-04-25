@@ -58,6 +58,7 @@ body{
 
 .navbar-nav > li {
     padding-left: 90px;
+    
 }
 
 
@@ -68,3 +69,10 @@ body{
 
 
 /*End bootstrap edits*/
+/*Start Member Page */
+.main-table tr:first-child td{ /*you can use thead*/
+    background-color: #333;
+    color: #FFF;
+
+}
+/*End Member Page*/
