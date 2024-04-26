@@ -13,7 +13,18 @@ $pageTitle = 'Members';
             include 'init.php';
 
             $do = isset($_GET['do']) ? $_GET['do'] : 'Manage';
-            if($do == 'Manage'){ //manage page ?> 
+            if($do == 'Manage'){ //manage page 
+               //Select All Users Execept Admin//
+               $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1");
+               //Execute The Statement
+               $stmt ->execute();
+               //Assign To Variable
+               $rows =$stmt->fetchAll();
+            
+            
+            
+            
+            ?> 
                      
                      <h1 class = "text-center  "> Manage members</h1>
                      <div class="container">
@@ -27,61 +38,23 @@ $pageTitle = 'Members';
                                              <td>Registed Date</td>
                                              <td>Control</td>
                                         </tr>
+                                        <?php
+                                            foreach($rows as $row){
+                                             echo "<tr>";
+                                                  echo "<td>" . $row['UserID'] . "</td>";
+                                                  echo "<td>" . $row['Username'] . "</td>";
+                                                  echo "<td>" . $row['Email'] . "</td>";
+                                                  echo "<td>" . $row['FullName'] . "</td>";
+                                                  echo "<td> 
+                                                       <a href='members.php?do=Edit&userid= " .$row['UserID']."' class='btn btn-success'>Edit</a>
+                                                       <a href='#' class='btn btn-danger'>Delete</a>
+                                                       </td>";
+                                                  
+                                             echo "</tr>";
+
+                                            }
+                                        ?>
                                         <tr>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td>
-                                                  <a href="#" class="btn btn-success">Edit</a>
-                                                  <a href="#" class="btn btn-danger">Delete</a>
-                                             </td>
-                                        </tr>
-                                        <tr>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td>
-                                                  <a href="#" class="btn btn-success">Edit</a>
-                                                  <a href="#" class="btn btn-danger">Delete</a>
-                                             </td>
-                                        </tr>
-                                        <tr>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td>
-                                                  <a href="#" class="btn btn-success">Edit</a>
-                                                  <a href="#" class="btn btn-danger">Delete</a> 
-                                             </td>
-                                        </tr>
-                                        <tr>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td>
-                                                  <a href="#" class="btn btn-success">Edit</a>
-                                                  <a href="#" class="btn btn-danger">Delete</a>
-                                             </td>
-                                        </tr>
-                                        <tr>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td>
-                                                  <a href="#" class="btn btn-success">Edit</a>
-                                                  <a href="#" class="btn btn-danger">Delete</a> 
-                                             </td>
-                                        </tr>
                                       </table>
 
                               </div>
