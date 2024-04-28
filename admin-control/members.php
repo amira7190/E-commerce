@@ -334,7 +334,8 @@ $pageTitle = 'Members';
                         }
 
                      }else{
-                              echo 'you cant Browse this page directly';
+                              $errorMsg= 'you cant Browse this page directly';
+                              redirectHome($errorMsg);
                           } 
                       echo "</div>";           
 
