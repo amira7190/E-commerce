@@ -45,9 +45,9 @@ $pageTitle = 'Members';
                                                   echo "<td>" . $row['Username'] . "</td>";
                                                   echo "<td>" . $row['Email'] . "</td>";
                                                   echo "<td>" . $row['FullName'] . "</td>";
-                                                  echo "<td> 
-                                                       <a href='members.php?do=Edit&userid= " .$row['UserID']."' class='btn btn-success'>Edit</a>
-                                                       <a href='#' class='btn btn-danger'>Delete</a>
+                                                  echo "<td>
+                                                       <a href='members.php?do=Edit&userid= " .$row['UserID'] ." 'class='btn btn-success'>Edit</a>
+                                                       <a href= 'members.php?do=Delete&userid= " .$row['UserID']. " 'class='btn btn-danger confirm'>Delete</a>
                                                        </td>";
                                                   
                                              echo "</tr>";
@@ -340,6 +340,40 @@ $pageTitle = 'Members';
 
 
 
+
+          }elseif ($do == 'Delete'){
+               // Delete member page 
+               echo "<h1 class = 'text-center'> update Member</h1>";
+               echo "<div class = 'container'> ";
+                       //check if Get Request Userid Is Numeric & Get The Integer Value Of It
+                       $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+
+                           //echo $userid;
+
+                           //Select All Data Depend On Thid ID 
+                          $stmt = $con->prepare("SELECT * FROM `users` WHERE  `UserID` = ?  LIMIT 1 ");
+                           
+                          //Execute Query
+                        $stmt->execute(array($userid));
+                        //The Row Count
+                       $count=$stmt->rowCount();
+                        //If There Such Id Show The Form
+                       if($stmt->rowCount() > 0){ 
+
+                         $stmt = $con-> prepare("DELETE FROM `users` WHERE `UserID` = :zuser ");
+                         $stmt->bindparam(":zuser" , $userid);
+                         $stmt->execute();
+
+
+                         echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Deleted </div>';
+
+
+
+
+                       }else{
+                         echo 'This Id isnot Exist';
+                       }
+                       echo '</div>';
 
           }
 
