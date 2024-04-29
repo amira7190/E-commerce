@@ -32,16 +32,11 @@
      if ($url === null){
           $url = 'index.php';
      }else{
-          if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == ''){
-               $url = $_SERVER['HTTP_REFERER'];
-
-
-          }else{
-               $url ='index.php';
-          }
+          $url = isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] !== '' ? $_SERVER['HTTP_REFERER'] : 'index.php';
+          $link = 'previous page';
      }
      echo $theMsg;
-     echo "<div class = 'alert alert-info'>You Will Be Redirected To $url After $seconds seconds.</div> ";
+     echo "<div class = 'alert alert-info'>You Will Be Redirected To $link After $seconds seconds.</div> ";
      header("refresh:$seconds;url=$url");
      exit();
    }

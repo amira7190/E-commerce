@@ -194,13 +194,16 @@ $pageTitle = 'Members';
                                                           ));
                  
                                                           //Echo success messag
-                                                                 echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Inserted Updated </div>';
+                                                                 $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Inserted Updated </div>';
+                                                                 redirectHome($theMsg , 'back');
                                              }
                                         }
 
                               }else{
-                                   $theMsg = '<div class = "alert alert-danger">Sorry you cant Browse this page directly</div>';
-                                   redirectHome($theMsg , 'back');
+                                   echo '<div class ="container">';
+                                        $theMsg = '<div class = "alert alert-danger">Sorry you cant Browse this page directly</div>';
+                                        redirectHome($theMsg , 'back');
+                                   echo '</div>';
                               } 
                                echo "</div>";           
 
@@ -285,7 +288,10 @@ $pageTitle = 'Members';
             }
                                         //If There is No Such ID Show Error Message 
                          else {
-                                   echo "Theres Is No Such ID";
+                              echo "<div class = 'container'>";
+                                   $theMsg = '<div class = "alert alert-danger">Theres Is No Such ID </div>';
+                                   redirectHome($theMsg ,);
+                              echo "</div>";
                               }       
             
 
@@ -334,13 +340,14 @@ $pageTitle = 'Members';
                                $stmt->execute(array($user , $email , $name ,  $pass , $id));
 
                                //Echo success message
-                                echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
+                                $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
+                                redirectHome ($theMsg , 'back');
 
                         }
 
                      }else{
-                              $errorMsg= 'you cant Browse this page directly';
-                              redirectHome($errorMsg);
+                              $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
+                              redirectHome($theMsg);
                           } 
                       echo "</div>";           
 
@@ -371,13 +378,17 @@ $pageTitle = 'Members';
                          $stmt->execute();
 
 
-                         echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Deleted </div>';
+                         $theMsg = "<div class = 'alert alert-success container'>" . $stmt->rowCount() . 'Record Deleted </div>';
+                         redirectHome ($theMsg);
 
 
 
 
                        }else{
-                         echo 'This Id isnot Exist';
+                         echo '<div class = "container">';
+                         $theMsg ='<div class = "alert alert-danger">This Id isnot Exist</div>';
+                         redirectHome($theMsg);
+                         echo '</div>';
                        }
                        echo '</div>';
 
