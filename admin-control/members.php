@@ -46,8 +46,8 @@ $pageTitle = 'Members';
                                                   echo "<td>" . $row['Email'] . "</td>";
                                                   echo "<td>" . $row['FullName'] . "</td>";
                                                   echo "<td>
-                                                       <a href='members.php?do=Edit&userid= " .$row['UserID'] ." 'class='btn btn-success'>Edit</a>
-                                                       <a href= 'members.php?do=Delete&userid= " .$row['UserID']. " 'class='btn btn-danger confirm'>Delete</a>
+                                                       <a href='members.php?do=Edit&userid= " .$row['UserID'] ." 'class='btn btn-success'><i class='fa fa-edit'></i>Edit</a>
+                                                       <a href= 'members.php?do=Delete&userid= " .$row['UserID']. " 'class='btn btn-danger confirm'><i class='fa fa-close'></i>Delete</a>
                                                        </td>";
                                                   
                                              echo "</tr>";
@@ -174,24 +174,28 @@ $pageTitle = 'Members';
 
                                         //check if theres no error proceed the update operation 
                                      if (empty ($formErrors)){
-                       
-                                              //Insert user info in database
 
-                                         $stmt = $con->prepare("INSERT INTO 
-                                                                       users(Username, Password, Email, Fullname)
-                                                                       VALUES(:zuser, :zpass, :zmail, :zname) ");
-                                        $stmt->execute(array(
-                                             'zuser' => $user,
-                                             'zpass' => $hashPass,
-                                             'zmail' => $email,
-                                             'zname' => $name
+                                        $check= checkItem("username" , "users", $user);
+                                        if($check == 1){
+                                             echo 'Sorry This User Is Exist';
+                                        }else{
+                                                    //Insert user info in database
 
+                                                         $stmt = $con->prepare("INSERT INTO 
+                                                                                 users(Username, Password, Email, Fullname)
+                                                                                 VALUES(:zuser, :zpass, :zmail, :zname) ");
+                                                         $stmt->execute(array(
+                                                                    'zuser' => $user,
+                                                                    'zpass' => $hashPass,
+                                                                    'zmail' => $email,
+                                                                    'zname' => $name
+             
 
-                                        ));
+                                                          ));
                  
-                                              //Echo success messag
-                                             echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Inserted Updated </div>';
-
+                                                          //Echo success messag
+                                                                 echo "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Inserted Updated </div>';
+                                             }
                                         }
 
                               }else{
