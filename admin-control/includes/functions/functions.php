@@ -21,16 +21,28 @@
 
 
    /*
-   **Home Redirection Function v 1.0
+   **Home Redirection Function v 2.0
    **  [This Function This Function Accept Parameters ]
-   **$errorMsg = echo the error message
+   **theMsg = echo the message [Error | success | warning]
+   ** $url = the link you want to redirect  to
    **$seconds = seconds before redirecting
    */
 
-   function redirectHome($errorMsg , $seconds = 3){
-     echo "<div class = 'alert alert-danger'>$errorMsg</div> ";
-     echo "<div class = 'alert alert-info'>You Will Be Redirected To Home Page After $seconds seconds.</div> ";
-     header("refresh:$seconds;url=index.php");
+   function redirectHome($theMsg ,$url = null , $seconds = 3){
+     if ($url === null){
+          $url = 'index.php';
+     }else{
+          if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == ''){
+               $url = $_SERVER['HTTP_REFERER'];
+
+
+          }else{
+               $url ='index.php';
+          }
+     }
+     echo $theMsg;
+     echo "<div class = 'alert alert-info'>You Will Be Redirected To $url After $seconds seconds.</div> ";
+     header("refresh:$seconds;url=$url");
      exit();
    }
 

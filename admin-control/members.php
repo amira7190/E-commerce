@@ -199,7 +199,8 @@ $pageTitle = 'Members';
                                         }
 
                               }else{
-                                echo 'you cant Browse this page directly';
+                                   $theMsg = '<div class = "alert alert-danger">Sorry you cant Browse this page directly</div>';
+                                   redirectHome($theMsg , 'back');
                               } 
                                echo "</div>";           
 
