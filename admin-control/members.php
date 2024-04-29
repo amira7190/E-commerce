@@ -178,7 +178,9 @@ $pageTitle = 'Members';
 
                                         $check= checkItem("username" , "users", $user);
                                         if($check == 1){
-                                             echo 'Sorry This User Is Exist';
+
+                                             $theMsg ="<div class = 'alert alert-danger'>Sorry This User Is Exist</div>";
+                                             redirectHome($theMsg , 'back');
                                         }else{
                                                     //Insert user info in database
 
@@ -226,7 +228,7 @@ $pageTitle = 'Members';
                         //The Row Count
                        $count=$stmt->rowCount();
                         //If There Such Id Show The Form
-                       if($stmt->rowCount() > 0){ ?>
+                       if($count > 0){ ?>
                     <h1 class = "text-center  "> Edit Member</h1>
                     <div class="container">
                           <form class="form-horizontal" action ="?do=update" method ="POST">
@@ -336,7 +338,7 @@ $pageTitle = 'Members';
                         if (empty ($formErrors)){
                             
                               //UPdate  the database with this info//
-
+ 
                                $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?  WHERE UserID = ? ");
                                $stmt->execute(array($user , $email , $name ,  $pass , $id));
 
@@ -363,16 +365,17 @@ $pageTitle = 'Members';
                        $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
 
                            //echo $userid;
+                       $check = checkItem('userid' , 'users' , $userid);
 
-                           //Select All Data Depend On Thid ID 
-                          $stmt = $con->prepare("SELECT * FROM `users` WHERE  `UserID` = ?  LIMIT 1 ");
+                              //Select All Data Depend On Thid ID 
+                              //  $stmt = $con->prepare("SELECT * FROM `users` WHERE  `UserID` = ?  LIMIT 1 ");
                            
-                          //Execute Query
-                        $stmt->execute(array($userid));
-                        //The Row Count
-                       $count=$stmt->rowCount();
+                             //Execute Query
+                             // $stmt->execute(array($userid));
+                             //The Row Count
+                             // $count=$stmt->rowCount();
                         //If There Such Id Show The Form
-                       if($stmt->rowCount() > 0){ 
+                       if($check > 0){ 
 
                          $stmt = $con-> prepare("DELETE FROM `users` WHERE `UserID` = :zuser ");
                          $stmt->bindparam(":zuser" , $userid);
