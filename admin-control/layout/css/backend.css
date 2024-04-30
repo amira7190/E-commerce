@@ -69,6 +69,23 @@ body{
 
 
 /*End bootstrap edits*/
+
+/*Start Dashboard Page*/
+.home-stats .stat{
+    background-color: #EEE;
+    border: 1px solid #CCC;
+    padding: 20px;
+    font-size: 20px;
+}
+.latest{
+    margin-top: 30px;
+}
+
+
+
+
+/*End Dashboard Page*/
+
 /*Start Member Page */
 .main-table tr:first-child td{ /*you can use thead*/
     background-color: #333;
