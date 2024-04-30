@@ -57,3 +57,16 @@
      $count = $statement -> rowcount();
      return $count;
    }
+   /*
+   **Count Number Of Items Function v 1.0
+   **Function To Count Number Of Items Rows
+   ** $item= the item to count
+   **$table = the table to choose from
+   */
+  function countItems($item , $table){
+     global $con;
+     $stmt2 = $con->prepare("SELECT COUNT($item) FROM $table");
+     $stmt2->execute();
+     return $stmt2->fetchColumn();
+
+  }

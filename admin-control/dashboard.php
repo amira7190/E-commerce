@@ -15,7 +15,7 @@
                               <div class="col-md-3">
                                     <div class="stat border ">
                                          Total Members
-                                         <span class="d-block fs-1">200</span>
+                                         <span class="d-block fs-1"><?php echo countItems('UserID' , 'users')?></span>
                                     </div>
                               </div>
                               <div class="col-md-3">
