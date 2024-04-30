@@ -21,7 +21,7 @@
                               <div class="col-md-3">
                                     <div class="stat st-pending text-light bg-success p-3 rounded-3">
                                           Pending Members
-                                          <span class="d-block fs-1">25</span>
+                                          <span class="d-block fs-1"><a href="members.php?do=Manage&page=pending">25</a></span>
                                     </div>
                               </div>
                               <div class="col-md-3">
