@@ -185,8 +185,8 @@ $pageTitle = 'Members';
                                                     //Insert user info in database
 
                                                          $stmt = $con->prepare("INSERT INTO 
-                                                                                 users(Username, Password, Email, Fullname , Date)
-                                                                                 VALUES(:zuser, :zpass, :zmail, :zname , now())");
+                                                                                 users(Username, Password, Email, Fullname ,RegStatus, Date)
+                                                                                 VALUES(:zuser, :zpass, :zmail, :zname , 1,now())");
                                                          $stmt->execute(array(
                                                                     'zuser' => $user,
                                                                     'zpass' => $hashPass,

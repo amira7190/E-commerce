@@ -13,25 +13,25 @@
                         <h1>Dashboard</h1>
                         <div class="row">
                               <div class="col-md-3">
-                                    <div class="stat border ">
+                                    <div class="stat st-member  text-light bg-primary p-3 rounded-3">
                                          Total Members
-                                         <span class="d-block fs-1"><?php echo countItems('UserID' , 'users')?></span>
+                                         <span class="d-block fs-1"><a href="members.php"><?php echo countItems('UserID' , 'users')?></a></span>
                                     </div>
                               </div>
                               <div class="col-md-3">
-                                    <div class="stat border">
+                                    <div class="stat st-pending text-light bg-success p-3 rounded-3">
                                           Pending Members
                                           <span class="d-block fs-1">25</span>
                                     </div>
                               </div>
                               <div class="col-md-3">
-                                    <div class="stat border">
+                                    <div class="stat st-item text-light bg-secondary p-3 rounded-3">
                                           Total Items
                                           <span class="d-block fs-1">1500</span>
                                     </div>
                               </div>
                               <div class="col-md-3">
-                                    <div class="stat border">
+                                    <div class="stat st-comment text-light bg-danger p-3 rounded-3">
                                           Total Comments
                                           <span class="d-block fs-1">3500</span>
                                     </div>
