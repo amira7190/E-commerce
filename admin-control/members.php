@@ -56,7 +56,7 @@ $pageTitle = 'Members';
                                                        <a href= 'members.php?do=Delete&userid= " .$row['UserID']. " 'class='btn btn-danger confirm'><i class='fa fa-close'></i>Delete</a>";
                                         
                                                        if($row['RegStatus'] == 0){
-                                                             echo" <a href= 'members.php?do=Delete&userid= " .$row['UserID']. " 'class='btn btn-info activate '><i class='fa fa-close'></i>Activate</a>";
+                                                             echo" <a href= 'members.php?do=Activate&userid= " .$row['UserID']. " 'class='btn btn-info activate '><i class='fa fa-close'></i>Activate</a>";
 
 
                                                        }
@@ -370,7 +370,7 @@ $pageTitle = 'Members';
 
           }elseif ($do == 'Delete'){
                // Delete member page 
-               echo "<h1 class = 'text-center'> update Member</h1>";
+               echo "<h1 class = 'text-center'> Delete Member</h1>";
                echo "<div class = 'container'> ";
                        //check if Get Request Userid Is Numeric & Get The Integer Value Of It
                        $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
@@ -406,6 +406,38 @@ $pageTitle = 'Members';
                          echo '</div>';
                        }
                        echo '</div>';
+
+          } elseif ($do == 'Activate'){
+               echo "<h1 class = 'text-center'> Activate Member</h1>";
+               echo "<div class = 'container'> ";
+                       //check if Get Request Userid Is Numeric & Get The Integer Value Of It
+                       $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+
+                           //echo $userid;
+                       $check = checkItem('userid' , 'users' , $userid);
+
+                              //if check > 0
+                       if($check > 0){ 
+
+                         $stmt = $con-> prepare("UPDATE users SET RegStatus = 1 WHERE UserID = ?  ");
+                         $stmt->execute(array($userid));
+
+
+                         $theMsg = "<div class = 'alert alert-success container'>" . $stmt->rowCount() . 'Record Activate </div>';
+                         redirectHome ($theMsg);
+
+
+
+
+                       }else{
+                         echo '<div class = "container">';
+                         $theMsg ='<div class = "alert alert-danger">This Id isnot Exist</div>';
+                         redirectHome($theMsg);
+                         echo '</div>';
+                       }
+                       echo '</div>';
+
+
 
           }
 
