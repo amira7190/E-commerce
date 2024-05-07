@@ -70,3 +70,19 @@
      return $stmt2->fetchColumn();
 
   }
+
+
+  /*
+  **Get Latest Records Function v 1.0
+  **Function To  Get Latest Item From Database [users , item , comment] 
+  **
+  **
+  **
+  */
+  function getLatest($select , $table , $order,$limit =5){
+     global $con;
+     $getStmt = $con->prepare("SELECT $select FROM $table ORDER BY $order DESC  LIMIT $limit");
+     $getStmt->execute();
+     $rows = $getStmt->fetchAll();
+     return $rows;
+  }

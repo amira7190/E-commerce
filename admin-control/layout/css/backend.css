@@ -89,7 +89,17 @@ body{
 .activate{
     margin-left: 5px;
 }
+.latest-users{
+    margin-bottom: 0;
+}
+.latest-users li{
+    padding: 10px ;
+    overflow: hidden;
+}
+.latest-users  .btn-success{
+    padding: 2px 8px;
 
+}
 
 
 
