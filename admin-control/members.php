@@ -4,6 +4,8 @@
  * you can add |edit | delete members from here
  */
 
+ ob_start(); //Output Buffering Start
+
  session_start();
 
 $pageTitle = 'Members';
@@ -442,19 +444,19 @@ $pageTitle = 'Members';
           }
 
 
+          include $tpl . 'footer.php'; 
+
+     }else {
+
+          header("Location: index.php");
+
+    exit();
+
+
+}
+ob_end_flush();
 
 
 
-
-            include $tpl . 'footer.php'; 
-
-        }else {
-
-             header("Location: index.php");
-
-       exit();
-
-
-  }
-
+            
   

@@ -1,5 +1,5 @@
 <?php    
-
+      ob_start();//Output Buffering start
       session_start();
 
       
@@ -109,6 +109,6 @@
            }
 
 
-
+    ob_end_flush();
 
 ?>
