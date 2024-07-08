@@ -151,7 +151,7 @@ $pageTitle = 'Members';
         
                           if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-                              echo "<h1 class = 'text-center'> update Member</h1>";
+                              echo "<h1 class = 'text-center'> Insert Member</h1>";
                               echo "<div class = 'container'> ";
                                   //Get variable from the form
                                   $id    = $_POST['userid'];
