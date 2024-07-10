@@ -141,7 +141,7 @@ $pageTitle = 'Categories';
                                   $name   = $_POST['name'];
                                   $desc  = $_POST['description'];
                                   $order  = $_POST['ordering'];
-                                  $visible = $_POST['visbilityil'];
+                                  $visible = $_POST['visibility'];
                                   $comment = $_POST['commenting'];
                                   $ads = $_POST['ads'];
 
@@ -170,8 +170,8 @@ $pageTitle = 'Categories';
                                                           ));
                  
                                                           //Echo success messag
-                                                                 $theMsg = "<div class = 'alert alert-success'>". $stmt->rowCount() . 'Inserted Updated </div>';
-                                                                 redirectHome($theMsg , 'back');
+                                                  redirectHome($theMsg , 'back');
+                                                  $theMsg = "<div class = 'alert alert-success'>". $stmt->rowCount() . 'Inserted Updated </div>';
                                              }
                                         
 
