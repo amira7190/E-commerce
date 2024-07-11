@@ -112,3 +112,35 @@ body{
 
 }
 /*End Member Page*/
+
+/*start category page*/
+
+.body .categories .cat h3{
+    margin: 0 0 10px;
+}
+.categories .cat:last-of-type ~ hr {
+    display: none;
+}
+.categories .cat .visibility{
+    color: #FFF;
+    border-radius: 6px;
+    margin-right: 10px;
+    padding: 4px 6px;
+    background-color: #c0392b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*end category page */

@@ -23,20 +23,21 @@ $pageTitle = 'Categories';
                $stmt2 = $con->prepare("SELECT * FROM categories");
                $stmt2->execute();
                $cats = $stmt2->fetchAll(); ?>
-
                <h1 class="text-center">Manage Categories</h1>
-               <div class="container">
-                    <div class="panel panel-default">
-                         <div class="panel-heading">Manage categories</div>
+               <div class="container categories">
+                    <div class="card">
+                         <div class="card-header">Manage categories</div>
                          <div class="panel-body">
                               <?php
                                   foreach($cats as $cat){
-                                   echo $cat['Name'] .'<br/>';
-                                   echo $cat['Description'] .'<br/>';
-                                   echo 'Ordaring Is' . $cat['Ordaring'] .'<br/>';
-                                   echo 'Visibility Is' . $cat['Visibility'] .'<br/>';
-                                   echo 'Allow Comment Is' . $cat['Allow_Comment'] .'<br/>';
-                                   echo 'Allow Ads Is' . $cat['Allow_Ads'] .'<br/>';
+                                   echo "<div class='cat'>";
+                                        echo "<h3>". $cat['Name'] ."<h3/>";
+                                        echo "<p>" ; if($cat['Description'] == '') {echo 'This category has no description ';} else {echo $cat['Description'] ;} echo"<p/>";
+                                        if($cat['Visibility'] == 1) { echo '<span class="visibility">Hidden<span/>';}
+                                        echo '<span class="commenting">Allow Comment Is :' .   $cat['Allow_Comment'] .'<span/>';
+                                        echo '<span class="advertises">Allow Ads Is :' .    $cat['Allow_Ads'] .'<span/>';
+                                   echo "</div>";
+                                   echo "<hr>";
 
 
 
