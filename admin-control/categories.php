@@ -20,7 +20,38 @@ $pageTitle = 'Categories';
 
           if($do == 'Manage'){
         
-               echo 'welcome';
+               $stmt2 = $con->prepare("SELECT * FROM categories");
+               $stmt2->execute();
+               $cats = $stmt2->fetchAll(); ?>
+
+               <h1 class="text-center">Manage Categories</h1>
+               <div class="container">
+                    <div class="panel panel-default">
+                         <div class="panel-heading">Manage categories</div>
+                         <div class="panel-body">
+                              <?php
+                                  foreach($cats as $cat){
+                                   echo $cat['Name'] .'<br/>';
+                                   echo $cat['Description'] .'<br/>';
+                                   echo 'Ordaring Is' . $cat['Ordaring'] .'<br/>';
+                                   echo 'Visibility Is' . $cat['Visibility'] .'<br/>';
+                                   echo 'Allow Comment Is' . $cat['Allow_Comment'] .'<br/>';
+                                   echo 'Allow Ads Is' . $cat['Allow_Ads'] .'<br/>';
+
+
+
+
+
+                                  }
+                              ?>
+                                      
+                         </div>
+                    </div>
+               </div>
+
+
+
+          <?php
           }
           elseif($do == 'add'){ ?>
               
@@ -170,8 +201,9 @@ $pageTitle = 'Categories';
                                                           ));
                  
                                                           //Echo success messag
-                                                  redirectHome($theMsg , 'back');
-                                                  $theMsg = "<div class = 'alert alert-success'>". $stmt->rowCount() . 'Inserted Updated </div>';
+                                                          $theMsg = "<div class = 'alert alert-success'>". $stmt->rowCount() . 'Inserted Updated </div>';       
+                                                          redirectHome($theMsg , 'back');
+                                                  
                                              }
                                         
 
