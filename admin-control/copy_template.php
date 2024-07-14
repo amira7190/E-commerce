@@ -36,6 +36,7 @@ $pageTitle = '';
 
     }else {
 
+?>
            header("Location: index.php");
 
            exit();

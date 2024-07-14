@@ -1,3 +1,4 @@
+         
 <?php
  /*
  =====================
@@ -19,18 +20,39 @@ $pageTitle = 'Categories';
           $do = isset($_GET['do'])  ?  $_GET['do'] : 'Manage';
 
           if($do == 'Manage'){
-        
-               $stmt2 = $con->prepare("SELECT * FROM categories");
+
+               $sort = 'ASC';
+               $sort_array = array('ASC','DESC');
+               if(isset($_GET['sort']) && in_array($_GET['sort'],$sort_array)){
+                    $sort=$_GET['sort'];
+               };
+
+               $stmt2 = $con->prepare("SELECT * FROM categories ORDER BY Ordering_View $sort");
                $stmt2->execute();
                $cats = $stmt2->fetchAll(); ?>
                <h1 class="text-center">Manage Categories</h1>
                <div class="container categories">
                     <div class="card">
-                         <div class="card-header">Manage categories</div>
+                         <div class="card-header">Manage categories
+                              <div class="ordering pull-right">
+                                   ordering:
+                                   <a class="<?php if($sort == 'ASC'){
+                                        echo'active';
+                                   } ?>"  href="?sort=ASC">Asc</a>
+                                   <a class="<?php if($sort == 'DESC'){
+                                        echo'active';
+                                   } ?>" href="?sort=DESC">Desc</a>
+
+                              </div>
+                         </div>
                          <div class="panel-body">
                               <?php
                                   foreach($cats as $cat){
                                    echo "<div class='cat'>";
+                                        echo "<div class='hidden buttons'>";
+                                            echo"<a href='categories.php?do=Edit&catid=" . $cat['ID'] ."' class='btn btn-xs btn-primary'><i class='fa fa-edit'>Edit</i></a>";
+                                            echo"<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-close'>Delete</i></a>";
+                                        echo"</div>";
                                         echo "<h3>". $cat['Name'] ."<h3/>";
                                         echo "<p>" ; if($cat['Description'] == '') {echo 'This category has no description ';} else {echo $cat['Description'] ;} echo"<p/>";
                                         if($cat['Visibility'] == 1) { echo '<span class="visibility">Hidden<span/>';}
@@ -218,6 +240,38 @@ $pageTitle = 'Categories';
 
 
          }elseif($do == 'Edit'){
+          //Edit Page
+              // echo 'welcome to edit your id is' . $_GET['userid'];
+                       
+                         //check if Get Request catid Is Numeric & Get The Integer Value Of It
+                         $catid = isset($_GET['catid']) && is_numeric($_GET['catid']) ? intval($_GET['catid']) : 0 ;
+
+                         //echo $userid;
+
+                         //Select All Data Depend On Thid ID 
+                        $stmt = $con->prepare("SELECT * FROM categories WHERE  ID = ? ");
+                         
+                        //Execute Query
+                      $stmt->execute(array(catid));
+                        //FetCH THe Data
+                      $cat = $stmt->fetch();
+                      //The Row Count
+                     $count=$stmt->rowCount();
+                      //If There Such Id Show The Form
+                     if($count > 0){ ?>
+                     
+          goodmnvbgug kiyughjouy iiuyj
+          <?php  
+          }
+                                      //If There is No Such ID Show Error Message 
+                       else {
+                            echo "<div class = 'container'>";
+                                 $theMsg = '<div class = "alert alert-danger">Theres Is No Such ID </div>';
+                                 redirectHome($theMsg ,);
+                            echo "</div>";
+                            }       
+          
+
 
 
          }elseif($do == 'Update'){

@@ -142,6 +142,15 @@ body{
     padding: 4px 6px;
     background-color: #c0392b;
 }
+.categories .ordering a{
+    color: #888;
+    text-decoration: none;
+}
+.categories .ordering .active{
+    color: #F00;
+    font-weight: bold;
+
+}
 
 
 
