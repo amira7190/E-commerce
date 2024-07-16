@@ -23,4 +23,4 @@
     }elseif($do == 'Insert'){
           echo " welcome You are in Insert category page";
     }else{
-           echo "Error there \No page with this name"; }
+        echo "Error there \No page with this name"; }

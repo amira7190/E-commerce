@@ -313,59 +313,59 @@ $pageTitle = 'Members';
 
       } elseif ( $do == 'update'){ //update page
 
-                    echo "<h1 class = 'text-center'> update Member</h1>";
-                    echo "<div class = 'container'> ";
-                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                         //Get variable from the form
-                        $id    = $_POST['userid'];
-                        $user  = $_POST['username'];
-                        $email = $_POST['email'];
-                        $name  = $_POST['full'];
+          echo "<h1 class = 'text-center'> update Member</h1>";
+          echo "<div class = 'container'> ";
+          if($_SERVER['REQUEST_METHOD'] == 'POST'){
+               //Get variable from the form
+              $id    = $_POST['userid'];
+              $user  = $_POST['username'];
+              $email = $_POST['email'];
+              $name  = $_POST['full'];
 
-                        //password trick
-                        //condition ? true : false ;
-                        $pass = empty($_POST['newpassword']) ? $_POST['oldpassword'] :  sha1($_POST['newpassword']) ;
-                        
-                        //Validate The Form
-                        $formErrors = array();
+              //password trick
+              //condition ? true : false ;
+              $pass = empty($_POST['newpassword']) ? $_POST['oldpassword'] :  sha1($_POST['newpassword']) ;
+              
+              //Validate The Form
+              $formErrors = array();
 
-                        if(strlen($user) < 4){
-                          $formErrors[] = '<div class = "alert alert-danger"> username cant be less than <strong>4 char</strong></div>';
-                        }
+              if(strlen($user) < 4){
+                $formErrors[] = '<div class = "alert alert-danger"> username cant be less than <strong>4 char</strong></div>';
+              }
 
-                        if(empty($user)){
-                          $formErrors[] = '<div class = "alert alert-danger"> User name Cant Be <strong>Empty</strong></div>';
-                        }
-                        if(empty($name)){
-                          $formErrors[] = '<div class = "alert alert-danger"> Full name Cant Be <strong>Empty</strong></div>';
-                        }
-                        if(empty($email)){
-                          $formErrors[] = '<div class = "alert alert-danger"> Email Cant Be <strong>Empty</strong></div>';
-                        }
-                        foreach($formErrors as $error){
-                          echo $error ;
-                        }
+              if(empty($user)){
+                $formErrors[] = '<div class = "alert alert-danger"> User name Cant Be <strong>Empty</strong></div>';
+              }
+              if(empty($name)){
+                $formErrors[] = '<div class = "alert alert-danger"> Full name Cant Be <strong>Empty</strong></div>';
+              }
+              if(empty($email)){
+                $formErrors[] = '<div class = "alert alert-danger"> Email Cant Be <strong>Empty</strong></div>';
+              }
+              foreach($formErrors as $error){
+                echo $error ;
+              }
 
 
-                        //check if theres no error proceed the update operation 
-                        if (empty ($formErrors)){
-                            
-                              //UPdate  the database with this info//
- 
-                               $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?  WHERE UserID = ? ");
-                               $stmt->execute(array($user , $email , $name ,  $pass , $id));
+              //check if theres no error proceed the update operation 
+              if (empty ($formErrors)){
+                  
+                    //UPdate  the database with this info//
 
-                               //Echo success message
-                                $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
-                                redirectHome ($theMsg , 'back');
+                     $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?  WHERE UserID = ? ");
+                     $stmt->execute(array($user , $email , $name ,  $pass , $id));
 
-                        }
+                     //Echo success message
+                      $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
+                      redirectHome ($theMsg , 'back');
 
-                     }else{
-                              $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
-                              redirectHome($theMsg);
-                          } 
-                      echo "</div>";           
+              }
+
+           }else{
+                    $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
+                    redirectHome($theMsg);
+                } 
+            echo "</div>";          
 
 
 
