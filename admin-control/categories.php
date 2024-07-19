@@ -34,7 +34,7 @@ $pageTitle = 'Categories';
                <div class="container categories">
                     <div class="card">
                          <div class="card-header">Manage categories
-                              <div class="ordering pull-right">
+                              <div class="option pull-right">
                                    ordering:
                                    <a class="<?php if($sort == 'ASC'){
                                         echo'active';
@@ -42,6 +42,9 @@ $pageTitle = 'Categories';
                                    <a class="<?php if($sort == 'DESC'){
                                         echo'active';
                                    } ?>" href="?sort=DESC">Desc</a>
+                                   view:
+                                   <span class="active" data-view="full">Full</span>
+                                   <span data-view="classic">Classic</span>
 
                               </div>
                          </div>
@@ -50,14 +53,15 @@ $pageTitle = 'Categories';
                                   foreach($cats as $cat){
                                    echo "<div class='cat'>";
                                         echo "<div class='hidden buttons'>";
-                                            echo"<a href='categories.php?do=Edit&catid=" . $cat['ID'] ."' class='btn btn-xs btn-primary'><i class='fa fa-edit'>Edit</i></a>";
-                                            echo"<a href='#' class='btn btn-xs btn-danger'><i class='fa fa-close'>Delete</i></a>";
-                                        echo"</div>";
-                                        echo "<h3>". $cat['Name'] ."<h3/>";
-                                        echo "<p>" ; if($cat['Description'] == '') {echo 'This category has no description ';} else {echo $cat['Description'] ;} echo"<p/>";
-                                        if($cat['Visibility'] == 1) { echo '<span class="visibility">Hidden<span/>';}
-                                        if($cat['Allow_Comment'] == 1) { echo '<span class="commenting">Comment Disabled<span/>';}
-                                        if($cat['Allow_Ads'] == 1) { echo '<span class="advertises">Ads Disabled<span/>';}
+                                            echo"<a href='categories.php?do=Edit&catid=" .$cat['ID'] . "' class='btn btn-xs btn-primary'><i class='fa fa-edit'>Edit</i></a>";
+                                            echo"<a href='categories.php?do=Delete&catid=" .$cat['ID'] . "' class='confirm btn btn-xs btn-danger'><i class='fa fa-close'>Delete</i></a>";                                       echo"</div>";
+                                        echo "<h3>". $cat['Name'] . "</h3>";
+                                        echo "<div class='full-view'>";
+                                            echo "<p>" ; if($cat['Description'] == '') {echo 'This category has no description ';} else {echo $cat['Description'] ;} echo"</p>";
+                                            if($cat['Visibility'] == 1) { echo '<span class="visibility">Hidden<span/>';}
+                                            if($cat['Allow_Comment'] == 1) { echo '<span class="commenting">Comment Disabled<span/>';}
+                                            if($cat['Allow_Ads'] == 1) { echo '<span class="advertises">Ads Disabled<span/>';}
+                                        echo "</div>";    
                                    echo "</div>";
                                    echo "<hr>";
 
@@ -70,6 +74,7 @@ $pageTitle = 'Categories';
                                       
                          </div>
                     </div>
+                    <a class =" add-category btn btn-primary" href="categories.php?do=add"><i class="fa fa-plus"></i>Add New Category</a>
                </div>
 
 
@@ -262,7 +267,7 @@ $pageTitle = 'Categories';
 
                          <h1 class = "text-center  "> Edit Category</h1>
                          <div class="container">
-                              <form class="form-horizontal" action ="?do=Update" method ="POST">
+                              <form class="form-horizontal" action ="?do=update" method ="POST">
                               <input type="hidden" name="catid" value="<?php echo $catid ?>"/>
                                                  <!-- Start name filed -->
                                         <div class="form-group form-group-lg">
@@ -374,47 +379,90 @@ $pageTitle = 'Categories';
 
 
          }elseif($do == 'Update'){
-          echo "<h1 class = 'text-center'> update Member</h1>";
-                    echo "<div class = 'container'> ";
-                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                         //Get variable from the form
-                        $id       = $_POST['catid'];
-                        $name     = $_POST['name'];
-                        $desc     = $_POST['description'];
-                        $order    = $_POST['ordering'];
-                        $visible  = $_POST['visibility'];
-                        $comment  = $_POST['commenting'];
-                        $ads      = $_POST['ads'];
-                    
-                              //UPdate  the database with this info//
- 
-                               $stmt = $con->prepare("UPDATE 
-                                                          categories
-                                                      SET  
-                                                           Name = ?, 
-                                                           Description = ?, 
-                                                           Ordering_View = ?, 
-                                                           Visibility = ?,
-                                                           Allow_Comment = ? ,
-                                                           Allow_Ads = ?
-                                                       WHERE 
-                                                           ID = ? ");
-                               $stmt->execute(array($name , $desc , $order ,  $visible , $comment , $ads , $id));
+          echo "<h1 class='text-center'>Update Category</h1>";
+			echo "<div class='container'>";
 
-                               //Echo success message
-                                $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
-                                redirectHome ($theMsg , 'back');
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                        
+				// Get Variables From The Form
 
-                     }else{
-                              $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
-                              redirectHome($theMsg);
-                          } 
-               echo "</div>";
+				$id 		= $_POST['catid'];
+				$name 		= $_POST['name'];
+				$desc 		= $_POST['description'];
+				$order 		= $_POST['ordering'];
+
+				$visible 	= $_POST['visibility'];
+				$comment 	= $_POST['commenting'];
+				$ads 		= $_POST['ads'];
+
+				// Update The Database With This Info
+
+				$stmt = $con->prepare("UPDATE 
+											categories 
+										SET 
+											Name = ?, 
+											Description = ?, 
+											Ordering = ?, 
+											Visibility = ?,
+											Allow_Comment = ?,
+											Allow_Ads = ? 
+										WHERE 
+											ID = ?");
+
+				$stmt->execute(array($name, $desc, $order, $visible, $comment, $ads, $id));
+
+				// Echo Success Message
+
+				$theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . ' Record Updated</div>';
+
+				redirectHome($theMsg, 'back');
+               } else {
+
+				$theMsg = '<div class="alert alert-danger">Sorry You Cant Browse This Page Directly</div>';
+
+				redirectHome($theMsg);
+
+			}
+
+			echo "</div>";
+
 
 
          }elseif($do == 'Delete'){
+          echo "<h1 class='text-center'>Delete Category</h1>";
+          echo "<div class='container'>";
+
+               // Check If Get Request Catid Is Numeric & Get The Integer Value Of It
+
+               $catid = isset($_GET['catid']) && is_numeric($_GET['catid']) ? intval($_GET['catid']) : 0;
+
+               // Select All Data Depend On This ID
+
+               $check = checkItem('ID', 'categories', $catid);
+
+               // If There's Such ID Show The Form
+
+               if ($check > 0) {
+
+                    $stmt = $con->prepare("DELETE FROM categories WHERE ID = :zid");
+
+                    $stmt->bindParam(":zid", $catid);
+
+                    $stmt->execute();
+
+                    $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . ' Record Deleted</div>';
+
+                    redirectHome($theMsg, 'back');
+
+               } else {
+
+                    $theMsg = '<div class="alert alert-danger">This ID is Not Exist</div>';
+
+                    redirectHome($theMsg);
+
+               }
+
+          echo '</div>';
 
 
          }
