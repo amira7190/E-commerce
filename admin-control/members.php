@@ -218,7 +218,7 @@ $pageTitle = 'Members';
                               }else{
                                    echo '<div class ="container">';
                                         $theMsg = '<div class = "alert alert-danger">Sorry you cant Browse this page directly</div>';
-                                        redirectHome($theMsg , 'back');
+                                        redirectHome($theMsg );
                                    echo '</div>';
                               } 
                                echo "</div>";           

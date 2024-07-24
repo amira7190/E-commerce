@@ -3,7 +3,7 @@ ob_start();
 
 session_start();
 
-$pageTitle = 'Items';
+$pageTitle = 'items';
 
   if(isset($_SESSION['Username'])){
       
@@ -18,7 +18,7 @@ $pageTitle = 'Items';
           elseif($do == 'add'){ ?>
             <h1 class = "text-center  "> Add New Items</h1>
               <div class="container">
-                    <form class="form-horizontal" action ="?do=Insert" method ="POST">
+                    <form class="form-horizontal" action ="?do=insert" method ="POST">
                                      
                                      <!-- Start name filed -->
                                 <div class="form-group form-group-lg">
@@ -28,7 +28,6 @@ $pageTitle = 'Items';
                                               type="text" 
                                               name="name" 
                                               class="form-control" 
-                                              required = "required" 
                                               placeholder="Name Of The Item"/>
                                       </div>
                                  </div>
@@ -42,7 +41,6 @@ $pageTitle = 'Items';
                                               type="text" 
                                               name="description" 
                                               class="form-control" 
-                                              required = "required" 
                                               placeholder="Description Of The Item"/>
                                       </div>
                                  </div>
@@ -56,7 +54,6 @@ $pageTitle = 'Items';
                                               type="text" 
                                               name="price" 
                                               class="form-control" 
-                                              required = "required" 
                                               placeholder="Price Of The Item"/>
                                       </div>
                                  </div>
@@ -67,9 +64,9 @@ $pageTitle = 'Items';
                                      <div class="col-sm-10">
                                          <input 
                                               type="text" 
-                                              name="price" 
+                                              name="country" 
                                               class="form-control" 
-                                              required = "required" 
+     
                                               placeholder="country of made"/>
                                       </div>
                                  </div>
@@ -90,6 +87,51 @@ $pageTitle = 'Items';
                                       </div>
                                  </div>
                                        <!-- end status filed -->
+                                        <!-- Start member filed -->
+                                <div class="form-group form-group-lg">
+                                    <label class = "col-sm-2 control-label">Member</label>
+                                     <div class="col-sm-10">
+                                         <select class = "form-control" name="member">
+                                         <option value="0">...</option>
+                                         <?php
+
+                                          $stmt= $con->prepare("SELECT * FROM user");
+                                          $stmt->execute();
+                                          $users= $stmt->fetchAll();
+                                          foreach($users as $user){
+                                             echo "<option value='" .$user['UserID']."'>".$user['Username']."</option> ";
+                                          }
+
+                                         ?>
+                                         
+                                         
+                                         </select>
+                                      </div>
+                                 </div>
+                                       <!-- end member filed -->
+                                        <!-- Start category filed -->
+                                <div class="form-group form-group-lg">
+                                    <label class = "col-sm-2 control-label">category</label>
+                                     <div class="col-sm-10">
+                                         <select class = "form-control" name="category">
+                                         <option value="0">...</option>
+                                         <?php
+
+                                          $stmt2= $con->prepare("SELECT * FROM categories");
+                                          $stmt2->execute();
+                                          $cats= $stmt->fetchAll();
+                                          foreach($cats as $cat){
+                                             echo "<option value='" .$cat['ID']."'>".$cat['Name']."</option> ";
+                                          }
+
+                                         ?>
+                                         
+                                         
+                                         </select>
+                                      </div>
+                                 </div>
+                                       <!-- end category filed -->
+                                        
 
 
                                        
@@ -104,7 +146,7 @@ $pageTitle = 'Items';
                                          </div>
                                    </div>
                                         <!-- end submit filed -->
-                 </div>
+                 
 
               </form>
 
@@ -113,18 +155,91 @@ $pageTitle = 'Items';
 
           <?php
 
-         }elseif($do == 'Insert'){
+         }elseif($do == 'insert'){
+                         
+                          //Insert Member Page
+        
+                          if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                              echo "<h1 class = 'text-center'> Insert Item</h1>";
+                              echo "<div class = 'container'> ";
+                                  //Get variable from the form
+                                  $name    = $_POST['name'];
+                                  $desc  = $_POST['description'];
+                                  $price  = $_POST['price'];
+                                  $country= $_POST['country'];
+                                  $status  = $_POST['status'];
+                                  
+
+                   
+                                  //Validate The Form
+                                  $formErrors = array();
+
+                                        if(empty($name)){
+                                               $formErrors[] = 'name cant be <strong> empty</strong>';
+                                        }
+
+                                      if(empty($desc)){
+                                             $formErrors[] = 'description Cant Be <strong>Empty</strong>';
+                                        }
+                                        if(empty($price)){
+                                             $formErrors[] = 'price Cant Be <strong>Empty</strong>';
+                                        }
+                                      if(empty($country)){
+                                             $formErrors[] = 'country Cant Be <strong>Empty</strong>';
+                                        }
+                                     if($status == 0){
+                                              $formErrors[] = 'you must choose the <strong>Status</strong>';
+                                        }
+                                    foreach($formErrors as $error){
+                                             echo '<div class= "alert alert-danger">'. $error.'</div>' ;
+                                        }
 
 
-         }elseif($do == 'Edit'){
+                                        //check if theres no error proceed the update operation 
+                                     if (empty ($formErrors)){
 
-         }elseif($do == 'Update'){
+                                                         $stmt = $con->prepare("INSERT INTO 
+                                                                                 items(Name, Description, Price, Country_Made , Status, Add_Date)
+                                                                                 VALUES(:zname, :zdesc, :zprice, :zcountry , :zstatus,now())");
+                                                         $stmt->execute(array(
+                                                                    'zname'    => $name,
+                                                                    'zdesc'    => $desc,
+                                                                    'zprice'   => $price,
+                                                                    'zcountry' => $country,
+                                                                    'zstatus'  => $status
+                                                            
+             
+
+                                                          ));
+                 
+                                                          //Echo success messag
+                                                                 $theMsg = "<div class = 'alert alert-success'>". $stmt->rowCount() . 'Inserted Updated </div>';
+                                                                 redirectHome($theMsg , 'back');
+                                             
+                                        }
+
+                              }else{
+                                   echo '<div class ="container">';
+                                        $theMsg = '<div class = "alert alert-danger">Sorry you cant Browse this page directly</div>';
+                                        redirectHome($theMsg , 'back' );
+                                   echo '</div>';
+                              } 
+                               echo "</div>";       
+
+
+
+
+
+         }elseif($do == 'edit'){
+
+         }elseif($do == 'update'){
          
 
-         }elseif($do == 'Delete'){
+         }elseif($do == 'delete'){
           
 
-         }elseif($do == 'Approve'){
+         }elseif($do == 'approve'){
           
 
          }
