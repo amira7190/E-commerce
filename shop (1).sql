@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2024 at 10:34 PM
+-- Generation Time: Jul 29, 2024 at 10:58 PM
 -- Server version: 8.0.36-0ubuntu0.22.04.1
 -- PHP Version: 8.2.17
 
@@ -42,10 +42,28 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`ID`, `Name`, `Description`, `Ordering_View`, `Visibility`, `Allow_Comment`, `Allow_Ads`) VALUES
-(1, 'toys', 'this is toys for kids', 1, 0, 0, 0),
-(2, 'electronic', '', 2, 0, 1, 0),
-(3, 'private', '', 3, 1, 1, 1),
-(4, 'Play station', 'play station', 4, 0, 1, 0);
+(4, 'Play station', 'play station', 4, 0, 1, 0),
+(5, 'Toys', 'this is toys for kids', 2, 0, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items`
+--
+
+CREATE TABLE `items` (
+  `Item_ID` int NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Price` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Add_Date` date NOT NULL,
+  `Country_Made` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Rating` smallint NOT NULL,
+  `Cat_ID` int NOT NULL,
+  `Member_ID` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -83,7 +101,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `Email`, `FullName`, `GroupID`, `TrustStatus`, `RegStatus`, `Date`) VALUES
 (15, 'amira', '601f1889667efaebb33b8c12572835da3f027f78', 'amira@amira.com', 'amira amira', 1, 0, 1, NULL),
-(16, 'Rana', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Rana@gmail.com', 'Rana Muhammed', 0, 0, 1, NULL),
+(16, ' Rana A', ' 7c4a8d09ca3762af61e59520943dc26494f8941b ', 'Rana@gmail.com', ' Rana Muhammed ', 0, 0, 1, NULL),
 (20, 'sherief', '601f1889667efaebb33b8c12572835da3f027f78', 'sherief@gmail.com', 'sherief ahmed', 0, 0, 1, NULL),
 (21, 'majed', '1635135bf5e0c77b55da5cf751a4438fe2a14a78', 'majed@gmail.com', 'majed muhammed', 0, 0, 1, '2024-04-30'),
 (24, 'Hashim', 'ce733be1cf0b08775785b796eb59df941896ec44', 'hashim@gmail.com', 'hashim nader', 0, 0, 1, '2024-05-02'),
@@ -102,6 +120,12 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `Name` (`Name`);
 
 --
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`Item_ID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -117,7 +141,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `ID` smallint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` smallint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `Item_ID` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
