@@ -3,7 +3,7 @@ ob_start();
 
 session_start();
 
-$pageTitle = 'items';
+$pageTitle = 'Items';
 
   if(isset($_SESSION['Username'])){
       
@@ -18,7 +18,7 @@ $pageTitle = 'items';
           elseif($do == 'add'){ ?>
             <h1 class = "text-center  "> Add New Items</h1>
               <div class="container">
-                    <form class="form-horizontal" action ="?do=insert" method ="POST">
+                    <form class="form-horizontal" action ="?do=Insert" method ="POST">
                                      
                                      <!-- Start name filed -->
                                 <div class="form-group form-group-lg">
@@ -95,7 +95,7 @@ $pageTitle = 'items';
                                          <option value="0">...</option>
                                          <?php
 
-                                          $stmt= $con->prepare("SELECT * FROM user");
+                                          $stmt= $con->prepare("SELECT * FROM users");
                                           $stmt->execute();
                                           $users= $stmt->fetchAll();
                                           foreach($users as $user){
@@ -119,7 +119,7 @@ $pageTitle = 'items';
 
                                           $stmt2= $con->prepare("SELECT * FROM categories");
                                           $stmt2->execute();
-                                          $cats= $stmt->fetchAll();
+                                          $cats= $stmt2->fetchAll();
                                           foreach($cats as $cat){
                                              echo "<option value='" .$cat['ID']."'>".$cat['Name']."</option> ";
                                           }
@@ -132,13 +132,6 @@ $pageTitle = 'items';
                                  </div>
                                        <!-- end category filed -->
                                         
-
-
-                                       
-
-
-
-                    
                                         <!-- Start submit filed -->
                                    <div class="form-group form-group-lg">
                                         <div class=" col-sm-offset-2 col-sm-10">
@@ -155,7 +148,7 @@ $pageTitle = 'items';
 
           <?php
 
-         }elseif($do == 'insert'){
+         }elseif($do == 'Insert'){
                          
                           //Insert Member Page
         
@@ -169,7 +162,9 @@ $pageTitle = 'items';
                                   $price  = $_POST['price'];
                                   $country= $_POST['country'];
                                   $status  = $_POST['status'];
-                                  
+                                  $member  =$_POST['member'];
+                                  $cat  =$_POST['category'];
+
 
                    
                                   //Validate The Form
@@ -191,6 +186,13 @@ $pageTitle = 'items';
                                      if($status == 0){
                                               $formErrors[] = 'you must choose the <strong>Status</strong>';
                                         }
+                                        if ($member == 0) {
+                                             $formErrors[] = 'You Must Choose the <strong>Member</strong>';
+                                        }
+                    
+                                        if ($cat == 0) {
+                                             $formErrors[] = 'You Must Choose the <strong>Category</strong>';
+                                        }
                                     foreach($formErrors as $error){
                                              echo '<div class= "alert alert-danger">'. $error.'</div>' ;
                                         }
@@ -200,19 +202,21 @@ $pageTitle = 'items';
                                      if (empty ($formErrors)){
 
                                                          $stmt = $con->prepare("INSERT INTO 
-                                                                                 items(Name, Description, Price, Country_Made , Status, Add_Date)
-                                                                                 VALUES(:zname, :zdesc, :zprice, :zcountry , :zstatus,now())");
+                                                                                 `items`(`Name`, `Description`, Price, Country_Made , `Status`, `Add_Date`, Cat_ID, Member_ID)
+                                                                                 VALUES(:zname, :zdesc, :zprice, :zcountry , :zstatus,`now()`, :zcat, :zmember)");
                                                          $stmt->execute(array(
-                                                                    'zname'    => $name,
-                                                                    'zdesc'    => $desc,
-                                                                    'zprice'   => $price,
-                                                                    'zcountry' => $country,
-                                                                    'zstatus'  => $status
+                                                                    'zname'     => $name,
+                                                                    'zdesc'     => $desc,
+                                                                    'zprice'    => $price,
+                                                                    'zcountry'  => $country,
+                                                                    'zstatus'   => $status,
+                                                                    'zcat'		=> $cat,
+						                                      'zmember'	=> $member
                                                             
              
 
                                                           ));
-                 
+                                                  
                                                           //Echo success messag
                                                                  $theMsg = "<div class = 'alert alert-success'>". $stmt->rowCount() . 'Inserted Updated </div>';
                                                                  redirectHome($theMsg , 'back');
