@@ -15,6 +15,7 @@ $pageTitle = 'Members';
             include 'init.php';
 
             $do = isset($_GET['do']) ? $_GET['do'] : 'Manage';
+            
             if($do == 'Manage'){ //manage page 
                $query = '';
                if(isset($_GET['page']) && $_GET['page'] == 'pending'){

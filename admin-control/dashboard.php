@@ -31,7 +31,7 @@
                               <div class="col-md-3">
                                     <div class="stat st-item text-light bg-secondary p-3 rounded-3">
                                           Total Items
-                                          <span class="d-block fs-1">1500</span>
+                                          <span class="d-block fs-1"><a href="itemss.php"><?php echo countItems('Item_ID' , 'items')?></a></span>
                                     </div>
                               </div>
                               <div class="col-md-3">
