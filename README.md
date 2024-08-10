@@ -14,5 +14,6 @@ Progress Videos :
 12-Done add data to database     
 13-Done session    
 14-Done      
-25- 20/4 add asterisk lesson #025
+25- 20/4 add asterisk lesson 
+70-make update item page 
 

@@ -331,7 +331,8 @@ $pageTitle = 'Items';
           <h1 class = "text-center  "> Edit Items</h1>
               <div class="container">
                     <form class="form-horizontal" action ="?do=Update" method ="POST">
-                                     
+                    <input type="hidden" name="itemid" value="<?php echo $itemid ?>"/>
+
                                      <!-- Start name filed -->
                                 <div class="form-group form-group-lg">
                                     <label class = "col-sm-2 control-label"> Name</label>
@@ -474,7 +475,85 @@ $pageTitle = 'Items';
              }
 
          }elseif($do == 'Update'){
-         
+          echo "<h1 class = 'text-center'> update Item</h1>";
+          echo "<div class = 'container'> ";
+          if($_SERVER['REQUEST_METHOD'] == 'POST'){
+               //Get variable from the form
+              $id     = $_POST['itemid'];
+              $name   = $_POST['name'];
+              $desc   = $_POST['description'];
+              $price  = $_POST['price'];
+              $country  = $_POST['country'];
+              $status  = $_POST['status'];
+              $member  = $_POST['member'];
+              $cat  = $_POST['category'];
+
+
+
+
+
+              
+              //Validate The Form
+              $formErrors = array();
+
+                                        if(empty($name)){
+                                               $formErrors[] = 'name cant be <strong> empty</strong>';
+                                        }
+
+                                      if(empty($desc)){
+                                             $formErrors[] = 'description Cant Be <strong>Empty</strong>';
+                                        }
+                                        if(empty($price)){
+                                             $formErrors[] = 'price Cant Be <strong>Empty</strong>';
+                                        }
+                                      if(empty($country)){
+                                             $formErrors[] = 'country Cant Be <strong>Empty</strong>';
+                                        }
+                                     if($status == 0){
+                                              $formErrors[] = 'you must choose the <strong>Status</strong>';
+                                        }
+                                        if ($member == 0) {
+                                             $formErrors[] = 'You Must Choose the <strong>Member</strong>';
+                                        }
+                    
+                                        if ($cat == 0) {
+                                             $formErrors[] = 'You Must Choose the <strong>Category</strong>';
+                                        }
+                                    foreach($formErrors as $error){
+                                             echo '<div class= "alert alert-danger">'. $error.'</div>' ;
+                                        }
+              
+
+              //check if theres no error proceed the update operation 
+              if (empty ($formErrors)){
+                  
+                    //UPdate  the database with this info//
+
+                     $stmt = $con->prepare("UPDATE
+                                                  items 
+                                             SET  Name= ?, 
+                                                  Description = ?, 
+                                                  Price = ?, 
+                                                  Status = ?,
+                                                  Country_Made = ?,
+                                                  Cat_ID = ?,
+                                                  Member_ID = ?  
+                                             WHERE 
+                                                  ItemID = ? ");
+                     $stmt->execute(array($name , $desc , $price ,  $status , $country, $cat, $member, $id));
+
+                     //Echo success message
+                      $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
+                      redirectHome ($theMsg , 'back');
+
+              }
+
+           }else{
+                    $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
+                    redirectHome($theMsg);
+                } 
+            echo "</div>";          
+
 
          }elseif($do == 'delete'){
           
