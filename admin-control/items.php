@@ -13,10 +13,6 @@ $pageTitle = 'Items';
 
           if($do == 'Manage'){
                
-                    $query = '';
-                    if(isset($_GET['page']) && $_GET['page'] == 'pending'){
-                         $query = 'AND RegStatus = 0';
-                    }
      
                     //Select All Users Execept Admin//
                     $stmt = $con->prepare("SELECT * FROM items");
@@ -56,7 +52,7 @@ $pageTitle = 'Items';
                                                        echo "<td>" . $item['Add_Date'] . "</td>";
                                                        echo "<td>
                                                             <a href='items.php?do=Edit&itemid= " .$item['Item_ID'] ." 'class='btn btn-success'><i class='fa fa-edit'></i>Edit</a>
-                                                            <a href= 'itemss.php?do=Delete&itemid= " .$item['Item_ID']. " 'class='btn btn-danger confirm'><i class='fa fa-close'></i>Delete</a>";
+                                                            <a href= 'items.php?do=Delete&itemid= " .$item['Item_ID']. " 'class='btn btn-danger confirm'><i class='fa fa-close'></i>Delete</a>";
                                              
                                                             
                                                         echo "</td>";
@@ -415,9 +411,9 @@ $pageTitle = 'Items';
                                           $stmt->execute();
                                           $users= $stmt->fetchAll();
                                           foreach($users as $user){
-                                             echo "<option value='" .$user['UserID']."'";
+                                             echo "<option value='" . $user['UserID']."'";
                                               if($item['Member_ID'] == $user['UserID'] ){ echo 'selected';} 
-                                              echo">".$user['Username']."</option> ";
+                                              echo">" . $user['Username']."</option> ";
                                           }
 
                                          ?>
@@ -431,7 +427,7 @@ $pageTitle = 'Items';
                                 <div class="form-group form-group-lg">
                                     <label class = "col-sm-2 control-label">category</label>
                                      <div class="col-sm-10">
-                                         <select class = "form-control" name="categories">
+                                         <select class = "form-control" name="category">
                                          <?php
 
                                           $stmt2= $con->prepare("SELECT * FROM categories");
@@ -475,87 +471,109 @@ $pageTitle = 'Items';
              }
 
          }elseif($do == 'Update'){
-          echo "<h1 class = 'text-center'> update Item</h1>";
-          echo "<div class = 'container'> ";
-          if($_SERVER['REQUEST_METHOD'] == 'POST'){
-               //Get variable from the form
-              $id     = $_POST['itemid'];
-              $name   = $_POST['name'];
-              $desc   = $_POST['description'];
-              $price  = $_POST['price'];
-              $country  = $_POST['country'];
-              $status  = $_POST['status'];
-              $member  = $_POST['member'];
-              $cat  = $_POST['category'];
+                    echo "<h1 class='text-center'>Update Item</h1>";
+                    echo "<div class='container'>";
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                // Get variables from the form
+                                        $id     = $_POST['itemid'];
+                                        $name   = $_POST['name'];
+                                        $desc   = $_POST['description'];
+                                        $price  = $_POST['price'];
+                                        $country= $_POST['country'];
+                                        $status = $_POST['status'];
+                                        $member = $_POST['member'];
+                                        $cat    = $_POST['category'];
 
+                                        // Validate The Form
+                                        $formErrors = array();
 
-
-
-
-              
-              //Validate The Form
-              $formErrors = array();
-
-                                        if(empty($name)){
-                                               $formErrors[] = 'name cant be <strong> empty</strong>';
+                                        if (empty($name)) {
+                                                  $formErrors[] = 'Name can\'t be <strong>empty</strong>';
                                         }
-
-                                      if(empty($desc)){
-                                             $formErrors[] = 'description Cant Be <strong>Empty</strong>';
+                                        if (empty($desc)) {
+                                                  $formErrors[] = 'Description can\'t be <strong>empty</strong>';
                                         }
-                                        if(empty($price)){
-                                             $formErrors[] = 'price Cant Be <strong>Empty</strong>';
+                                        if (empty($price)) {
+                                                  $formErrors[] = 'Price can\'t be <strong>empty</strong>';
                                         }
-                                      if(empty($country)){
-                                             $formErrors[] = 'country Cant Be <strong>Empty</strong>';
+                                        if (empty($country)) {
+                                                  $formErrors[] = 'Country can\'t be <strong>empty</strong>';
                                         }
-                                     if($status == 0){
-                                              $formErrors[] = 'you must choose the <strong>Status</strong>';
+                                        if ($status == 0) {
+                                                  $formErrors[] = 'You must choose the <strong>Status</strong>';
                                         }
                                         if ($member == 0) {
-                                             $formErrors[] = 'You Must Choose the <strong>Member</strong>';
+                                                  $formErrors[] = 'You must choose the <strong>Member</strong>';
                                         }
-                    
                                         if ($cat == 0) {
-                                             $formErrors[] = 'You Must Choose the <strong>Category</strong>';
+                                                  $formErrors[] = 'You must choose the <strong>Category</strong>';
                                         }
-                                    foreach($formErrors as $error){
-                                             echo '<div class= "alert alert-danger">'. $error.'</div>' ;
+
+                                        foreach ($formErrors as $error) {
+                                                   echo '<div class="alert alert-danger">' . $error . '</div>';
                                         }
-              
 
-              //check if theres no error proceed the update operation 
-              if (empty ($formErrors)){
-                  
-                    //UPdate  the database with this info//
+                                        // Check if there's no error, proceed with the update operation
+                                       if (empty($formErrors)) {
+        try {
+            // Update the database with this info
+            $stmt = $con->prepare("UPDATE items SET Name = ?, Description = ?, Price = ?, Status = ?, Country_Made = ?, Cat_ID = ?, Member_ID = ? WHERE Item_ID = ?");
+            $stmt->execute(array($name, $desc, $price, $status, $country, $cat, $member, $id));
 
-                     $stmt = $con->prepare("UPDATE
-                                                  items 
-                                             SET  Name= ?, 
-                                                  Description = ?, 
-                                                  Price = ?, 
-                                                  Status = ?,
-                                                  Country_Made = ?,
-                                                  Cat_ID = ?,
-                                                  Member_ID = ?  
-                                             WHERE 
-                                                  ItemID = ? ");
-                     $stmt->execute(array($name , $desc , $price ,  $status , $country, $cat, $member, $id));
-
-                     //Echo success message
-                      $theMsg = "<div class = 'alert alert-success'>" . $stmt->rowCount() . 'Record Updated </div>';
-                      redirectHome ($theMsg , 'back');
-
-              }
-
-           }else{
-                    $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
-                    redirectHome($theMsg);
-                } 
-            echo "</div>";          
+            // Echo success message
+            $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " Record Updated</div>";
+            redirectHome($theMsg, 'back');
+        } catch (Exception $e) {
+            echo '<div class="alert alert-danger">An error occurred: ' . $e->getMessage() . '</div>';
+        }
+    }
+} else {
+    $theMsg = '<div class="alert alert-danger">You can\'t browse this page directly</div>';
+    redirectHome($theMsg);
+}
+echo "</div>";
 
 
-         }elseif($do == 'delete'){
+                         
+
+         }elseif($do == 'Delete'){
+             // Delete member page 
+             echo "<h1 class = 'text-center'> Delete Item</h1>";
+             echo "<div class = 'container'> ";
+                     //check if Get Request Userid Is Numeric & Get The Integer Value Of It
+                     $itemid = isset($_GET['itemid']) && is_numeric($_GET['itemid']) ? intval($_GET['itemid']) : 0 ;
+
+                         //echo $userid;
+                     $check = checkItem('Item_ID' , 'items' , $itemid);
+
+                            //Select All Data Depend On Thid ID 
+                            //  $stmt = $con->prepare("SELECT * FROM `users` WHERE  `UserID` = ?  LIMIT 1 ");
+                         
+                           //Execute Query
+                           // $stmt->execute(array($userid));
+                           //The Row Count
+                           // $count=$stmt->rowCount();
+                      //If There Such Id Show The Form
+                     if($check > 0){ 
+
+                       $stmt = $con-> prepare("DELETE FROM items WHERE Item_ID = :zitem ");
+                       $stmt->bindparam(":zitem" , $itemid);
+                       $stmt->execute();
+
+
+                       $theMsg = "<div class = 'alert alert-success container'>" . $stmt->rowCount() . 'Record Deleted </div>';
+                       redirectHome ($theMsg);
+
+
+
+
+                     }else{
+                       echo '<div class = "container">';
+                       $theMsg ='<div class = "alert alert-danger">This Id isnot Exist</div>';
+                       redirectHome($theMsg);
+                       echo '</div>';
+                     }
+                     echo '</div>';
           
 
          }elseif($do == 'approve'){

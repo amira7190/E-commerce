@@ -15,5 +15,7 @@ Progress Videos :
 13-Done session    
 14-Done      
 25- 20/4 add asterisk lesson 
-70-make update item page 
+70-make update item page   
+71- make items delete page  
+
 
