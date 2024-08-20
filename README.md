@@ -16,6 +16,7 @@ Progress Videos :
 14-Done      
 25- 20/4 add asterisk lesson 
 70-make update item page   
-71- make items delete page  
+71- make items delete page    
+77- Create and link the comments page to the database
 
 

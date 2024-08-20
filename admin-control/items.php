@@ -53,8 +53,12 @@ $pageTitle = 'Items';
                                                        echo "<td>
                                                             <a href='items.php?do=Edit&itemid= " .$item['Item_ID'] ." 'class='btn btn-success'><i class='fa fa-edit'></i>Edit</a>
                                                             <a href= 'items.php?do=Delete&itemid= " .$item['Item_ID']. " 'class='btn btn-danger confirm'><i class='fa fa-close'></i>Delete</a>";
-                                             
-                                                            
+                                                            if($item['Approve'] == 0){
+                                                                 echo" <a 
+                                                                 href= 'items.php?do=Approve&itemid= " .$item['Item_ID']. " '
+                                                                 class='btn btn-info activate '>
+                                                                 <i class='fa fa-check'></i>Approve</a>";
+                                                           }
                                                         echo "</td>";
                                                        
                                                   echo "</tr>";
@@ -576,17 +580,46 @@ echo "</div>";
                      echo '</div>';
           
 
-         }elseif($do == 'approve'){
-          
+         }elseif($do == 'Approve'){
+          echo "<h1 class = 'text-center'> Approve Items</h1>";
+               echo "<div class = 'container'> ";
+                       //check if Get Request Userid Is Numeric & Get The Integer Value Of It
+                       $itemid = isset($_GET['itemid']) && is_numeric($_GET['itemid']) ? intval($_GET['itemid']) : 0 ;
 
-         }
+                           //echo $userid;
+                       $check = checkItem('Item_ID' , 'items' , $itemid);
+
+                              //if check > 0
+                       if($check > 0){ 
+
+                         $stmt = $con-> prepare("UPDATE items SET Approve = 1 WHERE Item_ID = ?  ");
+                         $stmt->execute(array($itemid));
+
+
+                         $theMsg = "<div class = 'alert alert-success container'>" . $stmt->rowCount() . 'Record Activate </div>';
+                         redirectHome ($theMsg);
+
+
+
+
+                       }else{
+                         echo '<div class = "container">';
+                         $theMsg ='<div class = "alert alert-danger">This Id isnot Exist</div>';
+                         redirectHome($theMsg);
+                         echo '</div>';
+                       }
+                       echo '</div>';
+
+
+
+          }
+
+         
           include $tbl . 'footer.php';
-    
-    }else{
+     }else{
 
         header("Location : index.php");
         exit();
-    }
-
+     }
 ob_end_flush();
 ?>

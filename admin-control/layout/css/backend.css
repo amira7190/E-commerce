@@ -76,6 +76,19 @@ body{
     border: 1px solid #CCC;
     padding: 20px;
     font-size: 20px;
+    position: relative;
+    overflow: hidden;
+    color: #FFF;
+}
+.home-stats .stat i{
+    position: absolute;
+    top: 35px;
+    left: 30px;
+    font-size: 80px;
+}
+.home-stats .stat .info{
+    float: right;
+
 }
 .home-stats .satt a{
     color: #FFF
