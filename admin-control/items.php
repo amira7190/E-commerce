@@ -20,7 +20,7 @@ $pageTitle = 'Items';
                     $stmt ->execute();
                     //Assign To Variable
                     $items =$stmt->fetchAll();
-                 
+                 if(!empty($items)){
                  
                  
                  
@@ -66,25 +66,19 @@ $pageTitle = 'Items';
                                                  }
                                              ?>
                                              <tr>
-                                           </table>
+                                            </table>
      
                                    </div>
                                    <a href="items.php?do=add" class ="btn btn-sm btn-primary"> <i class ="fa fa-plus"></i> New Item</a>
-                          </div>
-     
-                            
-     
-     
-     
-     
-     
-     
-     
-     
-                      
-                               
-               <?php
+                          </div>   
+               <?php }else{
+                    echo '<div class= "container">';
+                         echo '<div class= "nice-message">Theres No Items To Show</div>';
+                        echo' <a href="items.php?do=add" class ="btn btn-sm btn-primary"> <i class ="fa fa-plus"></i> New Item</a>';
 
+                    echo '</div>';
+                } ?> 
+<?php
           }
           elseif($do == 'add'){ ?>
             <h1 class = "text-center  "> Add New Items</h1>

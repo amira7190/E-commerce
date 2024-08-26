@@ -28,12 +28,12 @@ $pageTitle = 'Members';
                $stmt ->execute();
                //Assign To Variable
                $rows =$stmt->fetchAll();
-            
+               if(! ($rows)){
             
             
             
             ?> 
-                     
+                   
                      <h1 class = "text-center  "> Manage members</h1>
                      <div class="container">
                                 <div class="table-responsive">
@@ -76,17 +76,12 @@ $pageTitle = 'Members';
                               </div>
                               <a href="members.php?do=Add" class ="btn btn-primary"> <i class ="fa fa-plus"></i>Add New Member</a>
                      </div>
-
-                       
-
-
-
-
-
-
-
-
-                 
+               
+                <?php }else{
+                    echo '<div class= "container">';
+                         echo '<div class= "nice-message">Theres No Record To Show</div>';
+                    echo '</div>';
+                } ?> 
                           
           <?php  } elseif ($do == 'Add'){ ?>   <!--Add Members Page-->
                         
@@ -308,7 +303,7 @@ $pageTitle = 'Members';
                          else {
                               echo "<div class = 'container'>";
                                    $theMsg = '<div class = "alert alert-danger">Theres Is No Such ID </div>';
-                                   redirectHome($theMsg ,);
+                                   redirectHome($theMsg , '');
                               echo "</div>";
                               }       
             
@@ -406,7 +401,7 @@ $pageTitle = 'Members';
                        }else{
                          echo '<div class = "container">';
                          $theMsg ='<div class = "alert alert-danger">This Id isnot Exist</div>';
-                         redirectHome($theMsg);
+                         redirectHome($theMsg , 'back');
                          echo '</div>';
                        }
                        echo '</div>';
