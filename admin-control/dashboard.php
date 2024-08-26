@@ -1,3 +1,4 @@
+
 <?php    
       ob_start();//Output Buffering start
       session_start();
@@ -117,19 +118,46 @@
                                           </div>
                                     </div>
                               </div>
+                              <!--start latest comment -->
+                              <div class="row">
+                              <div class="col-sm-6">
+                                    <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                                <i class="fa fa-comment-o">Latest Comment</i>
+                                          </div>
+                                          <div class="panel-body border ">
+                                                <?php
+                                                   $stmt = $con->prepare("SELECT 
+                                                   comments.*, users.Username AS Member 
+                                               FROM 
+                                                   comments
+                                               INNER JOIN
+                                                   users
+                                               ON
+                                                   users.UserID = comments.user_id
+                                               ");
+                                                
+                                                   $stmt ->execute();
+                                                   $comments =$stmt->fetchAll();
+                                                   foreach($comments as $comment){
+                                                      echo '<div class="comment-box">';
+                                                                echo '<span class = "member-n">' . $comment['Member'] . '</span>';
+                                                                echo '<p class = "member-c">' . $comment['comment'] . '</p>';
+                                                      
+                                                      echo'</div>';
+
+                                                   }
+
+                                                 ?>
+                                                test
+                                                
+                                          </div>
+                                    </div>
+                              </div>
                         </div>
-                     </div>
-
-
-
-
-
-
-
-
-
-
-
+                              <!--end latest comment-->
+                        </div>
+            </div>
                     <?php
                      /*End Dashboard Page*/
                      

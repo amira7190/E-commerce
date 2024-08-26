@@ -15,8 +15,9 @@ Progress Videos :
 13-Done session    
 14-Done      
 25- 20/4 add asterisk lesson 
-70-make update item page   
+70- make update item page   
 71- make items delete page    
-77- Create and link the comments page to the database
+77- Create and link the comments page to the database   
+78-  Shows comments on the Dashboard and inside items
 
 
