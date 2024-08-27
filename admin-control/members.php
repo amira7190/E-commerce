@@ -23,7 +23,7 @@ $pageTitle = 'Members';
                }
 
                //Select All Users Execept Admin//
-               $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query");
+               $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query OREDER BY UserID DESC");
                //Execute The Statement
                $stmt ->execute();
                //Assign To Variable

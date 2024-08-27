@@ -32,6 +32,8 @@ $pageTitle = 'comments';
                                           users
                                       ON
                                           users.UserID = comments.user_id
+                                      ORDER BY
+                                          c_id DESC
                                       ");
                //Execute The Statement
                $stmt ->execute();

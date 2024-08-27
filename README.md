@@ -19,6 +19,7 @@ Progress Videos :
 71- make items delete page    
 77- Create and link the comments page to the database   
 78-  Shows comments on the Dashboard and inside items  
-79- check for empty records in page
+79- check for empty records in page   
+81- copy back end files to front & test
 
 

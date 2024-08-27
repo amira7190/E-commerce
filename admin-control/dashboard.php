@@ -12,6 +12,7 @@
                      $latestUsers = getLatest("*","users", "UserID", $numUsers); //Latest Users Array
                      $numItems = 5; //Number of latest items
                      $latestItems = getLatest("*" , "items", "Item_ID" , "$numItems"); // Latest Items Array
+                     $numComments = 4; //Number of latest Comments
 
                      ?>
                      <div class="container home-stats text-center">
@@ -96,7 +97,7 @@
                               <div class="col-sm-6">
                                     <div class="panel panel-default">
                                           <div class="panel-heading">
-                                                <i class="fa fa-tag">Latest Items</i>
+                                                <i class="fa fa-tag">Latest <?php echo $numItems ?> Items</i>
                                           </div>
                                           <div class="panel-body border ">
                                           <ul class = "list-unstyled latest-users  ">
@@ -131,7 +132,7 @@
                               <div class="col-sm-6">
                                     <div class="panel panel-default">
                                           <div class="panel-heading">
-                                                <i class="fa fa-comment-o">Latest Comment</i>
+                                                <i class="fa fa-comment-o">Latest <?php echo $numComments ?> Comment</i>
                                           </div>
                                           <div class="panel-body border ">
                                                 <?php
@@ -143,6 +144,9 @@
                                                    users
                                                ON
                                                    users.UserID = comments.user_id
+                                                ORDER BY
+                                                    c_id DESC
+                                                LIMIT $numComments
                                                ");
                                                 
                                                    $stmt ->execute();

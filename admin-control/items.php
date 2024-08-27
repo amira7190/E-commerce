@@ -15,7 +15,9 @@ $pageTitle = 'Items';
                
      
                     //Select All Users Execept Admin//
-                    $stmt = $con->prepare("SELECT * FROM items");
+                    $stmt = $con->prepare("SELECT * FROM items
+                                                    ORDER BY 
+                                                         Item_ID DESC");
                     //Execute The Statement
                     $stmt ->execute();
                     //Assign To Variable
