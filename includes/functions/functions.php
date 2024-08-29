@@ -1,6 +1,6 @@
 <?php
 /*
-  **Get L Records Function v 1.0
+  **Get L Categories Function v 1.0
   **Function To  Get categories From Database 
   **
   **
@@ -12,6 +12,22 @@
      $getCat->execute();
      $cats = $getCat->fetchAll();
      return $cats;
+  }
+
+
+  /*
+  **Get L Items Function v 1.0
+  **Function To  Get items From Database 
+  **
+  **
+  **
+  */
+  function getItems($CatID){
+     global $con;
+     $getItems = $con->prepare("SELECT * FROM items WHERE Cat_ID = ?  ORDER BY Item_ID DESC");
+     $getItems->execute(array($CatID));
+     $items = $getItems->fetchAll();
+     return $items;
   }
 
 

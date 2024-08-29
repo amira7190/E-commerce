@@ -21,6 +21,7 @@ Progress Videos :
 78-  Shows comments on the Dashboard and inside items  
 79- check for empty records in page   
 81- copy back end files to front & test   
-82- creat new categories and show it in navbar
+82- creat new categories and show it in navbar  
+83- Get categories items
 
 
