@@ -299,3 +299,136 @@ $pageTitle = 'items';
 
 ob_end_flush();
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Start Main Rulez*/
+
+body{
+    background-color: #f4f4f4;
+    font-size: 16px;
+}
+.nice-message{
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 5px solid #080;
+    background-color: #FFF;
+}
+h1{
+    font-size: 55px;
+    margin: 40px 0;
+    font-weight: bold;
+    color: #666;
+}
+/*End Main Rulez*/
+
+
+/*Start bootstrap edits */
+
+.navbar{
+    border-radius: 0;
+    margin-bottom: 0;
+    background-color: black;
+}
+.nav > .li > a,
+.navbar-brand{
+    padding: 15px 12px;
+}
+
+.navbar-brand{
+    font-size: 1em;
+
+}
+.navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: .25rem;
+    transition: box-shadow .15s ease-in-out;}
+
+.navbar-nav > li {
+    padding-left: 90px;
+    
+}
+
+
+
+
+
+
+
+
+/*End bootstrap edits*/
+
+/* start categories  */
+
+.item-box{
+    position: relative;
+}
+.item-box .price-tag{
+    position: absolute;
+    left: 0;
+    color: #813838;
+    font-weight: bold;
+    top: 10px;
+    padding: 2px 10px;
+    background-color: #B4B4B4;
+}
+/* End categories  */

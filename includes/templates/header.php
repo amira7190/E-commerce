@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="<?php  echo $css ; ?>bootstrap.min.css"/>
     <link rel="stylesheet" href="<?php  echo $css ; ?>all.min.css"/>
     <link rel="stylesheet" href="<?php  echo $css ; ?>fontawesome.min.css"/>
-    <link rel="stylesheet" href="<?php  echo $css ; ?>backend.css"/>
+    <link rel="stylesheet" href="<?php  echo $css ; ?>front.css"/>
 </head>
 <body>
     <div class="upper-bar">
-        Upper Bar
+        <div class="container">
+                  Upper Bar
+        </div>
     </div>
 <nav class="navbar navbar-expand-lg bg-dark ">
   <div class="container">
