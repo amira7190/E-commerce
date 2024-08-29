@@ -2,7 +2,7 @@
 
 include 'init.php';
 
- echo 'welcome';
+ echo 'welcomen';
 include $tpl . 'footer.php';
 ?>
 

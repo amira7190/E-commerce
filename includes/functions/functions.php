@@ -1,4 +1,62 @@
 <?php
+/*
+  **Get L Records Function v 1.0
+  **Function To  Get categories From Database 
+  **
+  **
+  **
+  */
+  function getCat(){
+     global $con;
+     $getCat = $con->prepare("SELECT * FROM categories ORDER BY ID ASC ");
+     $getCat->execute();
+     $cats = $getCat->fetchAll();
+     return $cats;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      /*
      ** Home Page v 1.0
 ** Title of the page if exist

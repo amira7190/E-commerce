@@ -15,7 +15,9 @@
  include $lang . 'english.php';
 //include $lang . 'arabic.php';
 include $tpl . 'header.php';
-include $tpl . 'navbar.php';
+//if(!isset($noNavbar)) {include $tpl . 'navbar.php';}
+
+//include $tpl . 'navbar.php';
 
 
 

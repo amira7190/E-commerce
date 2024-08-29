@@ -29,6 +29,7 @@
             Osama
           </a>
           <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../index.php">Visit Shop</a></li>
             <li><a class="dropdown-item" href="members.php?do=Edit&userid=<?php  echo $_SESSION['ID'] ?>">Edit Profile</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
