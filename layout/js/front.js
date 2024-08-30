@@ -1,5 +1,11 @@
 $(function(){
      'use strict';
+     //switch between login & sign //
+     $('.login-page h1 span').click(function(){
+      $(this).addClass('selected').siblings().removeClass('selected');
+      $('.login-page form').hide();
+      $('.' + $(this).data('class')).fadeIn(100);
+     });
 
      //Hide Placeholder On Form Focus
 
@@ -29,20 +35,6 @@ $(function(){
 
 
      });
-
-     // categry view option
-     $('.cat h3').click(function(){
-      $(this).next('.full-view').fadeToggle(200);
-     });
-     $('.option span').click(function(){
-      $(this).addClass('active').siblings('span').removeClass('active');
-      if($(this).data('view') == 'full'){
-        $('.cat full-view').fadeIn(200);
-
-      }else{
-        $('.cat full-view').fadeOut(200);
-      }
-     })
 
 
 });

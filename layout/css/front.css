@@ -16,8 +16,38 @@ h1{
     font-weight: bold;
     color: #666;
 }
+.input-container{
+    position: relative;
+}
+.asterisk{
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    color: #D20707;
+}
 /*End Main Rulez*/
-
+/*start login page*/
+.login-page form{
+    max-width: 380px;
+    margin: auto;
+}
+.login-page form input{
+    margin-bottom: 10px;
+}
+.login-page .selected{
+    color: #B22020;
+}
+.login-page h1{
+    color: #C0C0C0C0;
+}
+.login-page h1 span{
+    cursor:pointer;
+}
+.login-page .signup{
+    display: none;
+}
+/*end login page*/
 
 /*Start bootstrap edits */
 
@@ -48,11 +78,6 @@ h1{
     padding-left: 90px;
     
 }
-
-
-
-
-
 
 
 

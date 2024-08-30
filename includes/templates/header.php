@@ -12,7 +12,9 @@
 <body>
     <div class="upper-bar">
         <div class="container">
-                  Upper Bar
+                  <a href="login.php">
+                    <span class="pull-right">Login/Signup</span>
+                  </a>
         </div>
     </div>
 <nav class="navbar navbar-expand-lg bg-dark ">
