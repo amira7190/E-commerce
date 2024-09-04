@@ -38,6 +38,12 @@ h1{
 .login-page .selected{
     color: #B22020;
 }
+.login-page [data-class="login"].selected{
+    color: #337AB7;
+}
+.login-page [data-class="signup"].selected{
+    color: #5cb85c;
+}
 .login-page h1{
     color: #C0C0C0C0;
 }
@@ -46,6 +52,9 @@ h1{
 }
 .login-page .signup{
     display: none;
+}
+.login-page .btn{
+    width: 100%;
 }
 /*end login page*/
 

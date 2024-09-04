@@ -24,6 +24,7 @@ Progress Videos :
 82- creat new categories and show it in navbar  
 83- Get categories items  
 84-  The items for each division are brought and coordinated  
-85- Create sign - in page and new membership on one page
+85- Create sign - in page and new membership on one page  
+86- Login and the difference between a normal user and a site manager
 
 
