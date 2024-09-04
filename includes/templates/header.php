@@ -12,9 +12,29 @@
 <body>
     <div class="upper-bar">
         <div class="container">
+            <?php
+              if(isset($_SESSION[`user`])){
+
+                echo 'welcom' . $_SESSION[`user`];
+
+                $userStatus = checkUserStatus($_SESSION[`user`]);
+
+                if($userStatus == 1){
+                  
+                  //User Is Not Active
+
+
+
+                }
+              }else{
+
+              
+           
+            ?>
                   <a href="login.php">
                     <span class="pull-right">Login/Signup</span>
                   </a>
+              <?php } ?>
         </div>
     </div>
 <nav class="navbar navbar-expand-lg bg-dark ">
