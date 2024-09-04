@@ -13,12 +13,14 @@
     <div class="upper-bar">
         <div class="container">
             <?php
-              if(isset($_SESSION[`user`])){
+              if(isset($_SESSION['user'])){
 
-                echo 'welcom' . $_SESSION[`user`];
+                echo 'welcom' . $_SESSION['user'];
                 echo '<a href="profile.php">My Profile</a>';
+                echo ' - <a href="logout.php">Log Out</a>';
 
-                $userStatus = checkUserStatus($_SESSION[`user`]);
+
+                $userStatus = checkUserStatus($_SESSION['user']);
 
                 if($userStatus == 1){
 

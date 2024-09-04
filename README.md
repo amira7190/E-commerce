@@ -27,6 +27,7 @@ Progress Videos :
 85- Create sign - in page and new membership on one page  
 86- Login and the difference between a normal user and a site manager  
 87- Function to check the user's status whether it is active or not  
-88- Some Session and Protection information
+88- Some Session and Protection information  
+89-create profile page layout 
 
 
