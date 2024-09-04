@@ -1,6 +1,6 @@
 <?php
 session_start();
-$pageTitle = 'Homepage';
+$pageTitle = 'Profile';
 
 include 'init.php';
 include $tpl .'footer.php';

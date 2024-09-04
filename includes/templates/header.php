@@ -16,11 +16,12 @@
               if(isset($_SESSION[`user`])){
 
                 echo 'welcom' . $_SESSION[`user`];
+                echo '<a href="profile.php">My Profile</a>';
 
                 $userStatus = checkUserStatus($_SESSION[`user`]);
 
                 if($userStatus == 1){
-                  
+
                   //User Is Not Active
 
 
