@@ -7,7 +7,10 @@
  $css = 'layout/css/'; // CSS Directory
  $js = 'layout/js/'; // JS Directory
  
-
+$sessionUser = '';
+if(isset($_SESSION['user'])){
+     $sessionUser = $_SESSION['user'];
+}
 
  //Include The Important Files
  include $func . 'functions.php';

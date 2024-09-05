@@ -1,8 +1,16 @@
 <?php
 session_start();
 $pageTitle = 'Profile';
-
 include 'init.php';
+if(isset($_SESSION['user'])){
+   $getUser = $con->prepare(" SELECT * 
+                              FROM 
+                                   users
+                              WHERE
+                                   Username =?
+                                ");
+    $getUser->execute(array($sessionUser));
+    $info=$getUser->fetch();
 ?>
 <h1 class="text-center">My Profile</h1>
 <div class="information block">
@@ -10,7 +18,11 @@ include 'init.php';
         <div class="card">
             <div class="card-header">My Information</div>
             <div class="card-body">
-                 name:Osama
+                 Name: <?php echo $info['Username'] ?> </br>
+                 Email: <?php echo $info['Email'] ?> </br>
+                 Full Name: <?php echo $info['FullName'] ?> </br>
+                 Register Date: <?php echo $info['Date'] ?> </br>
+                 Favourite Category :
             </div>
         </div>
     </div>
@@ -35,7 +47,10 @@ include 'init.php';
         </div>
     </div>
 </div>
-<?php
+<?php } else {
+    header('Location: login.php');
+    exit();
+}
 include $tpl .'footer.php';
 
 ?>

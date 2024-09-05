@@ -28,6 +28,8 @@ Progress Videos :
 86- Login and the difference between a normal user and a site manager  
 87- Function to check the user's status whether it is active or not  
 88- Some Session and Protection information  
-89-create profile page layout 
+89-create profile page layout  
+90-           
+91- create fetch member data and display it on the Profile page
 
 
