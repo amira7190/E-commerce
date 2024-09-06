@@ -22,10 +22,10 @@
   **
   **
   */
-  function getItems($CatID){
+  function getItems($where, $value){
      global $con;
-     $getItems = $con->prepare("SELECT * FROM items WHERE Cat_ID = ?  ORDER BY Item_ID DESC");
-     $getItems->execute(array($CatID));
+     $getItems = $con->prepare("SELECT * FROM items WHERE $where = ?  ORDER BY Item_ID DESC");
+     $getItems->execute(array($value));
      $items = $getItems->fetchAll();
      return $items;
   }
@@ -52,48 +52,6 @@ function checkUserStatus($user){
      return $status;
      
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      /*
      ** Home Page v 1.0
 ** Title of the page if exist

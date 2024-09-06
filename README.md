@@ -30,6 +30,7 @@ Progress Videos :
 88- Some Session and Protection information  
 89-create profile page layout  
 90-           
-91- create fetch member data and display it on the Profile page
+91- create fetch member data and display it on the Profile page   
+92- fetch member advertisements and comments on the Profile page
 
 

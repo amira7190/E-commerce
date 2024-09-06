@@ -32,7 +32,22 @@ if(isset($_SESSION['user'])){
         <div class="card">
             <div class="card-header">My Ads</div>
             <div class="card-body">
-                 test ads
+            <div class="row">
+            <?php
+                foreach(getItems('Member_ID',$info['UserID']) as $item){
+                        echo'<div class="col-sm-6 col-md-3">'; 
+                            echo'<div class="card item-box">';
+                            echo'<span class="price-tag">' .$item['Price'] . '</span>';
+                                echo'<img class=img-fluid" src="avatar.png"  alt=""  />';
+                                echo '<div class="caption">';
+                                     echo'<h3>' .$item['Name']. '</h3>';
+                                     echo'<p>' .$item['Description']. '</p>';
+                                echo'</div>';
+                            echo'</div>';
+                        echo'</div>';
+                }
+            ?>
+        </div>
             </div>
         </div>
     </div>
@@ -42,7 +57,22 @@ if(isset($_SESSION['user'])){
         <div class="card">
             <div class="card-header">Latest Comments</div>
             <div class="card-body">
-                test comments
+            <?php
+               $stmt = $con->prepare("SELECT comment FROM comments WHERE user_id = ?  ");
+               //Execute The Statement
+               $stmt ->execute(array($info['UserID']));
+               //Assign To Variable
+               $comments =$stmt->fetchAll();
+               if(! empty($comments)){
+                    foreach($comments as $comment ){
+                        echo '<p>'. $comment['comment'] . '</p>';
+                    }
+
+                } else {
+                 echo 'There\'s no comments to show';
+                }
+            
+            ?>
             </div>
         </div>
     </div>
