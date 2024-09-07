@@ -50,10 +50,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                }
           }
           if(isset($_POST['password']) && isset($_POST['password2'])){
+               if(empty($_POST['password'])){
+                    $formErrors[] = 'Sorry Password Cant Be Empty';
+
+               }
                $pass1 = sha1($_POST['password']);
                $pass2 = sha1($_POST['password2']);
                if($pass1 !== $pass2){
                     $formErrors[] = 'sorry Password Is Not Match';
+               }
+          }
+          if(isset($_POST['email'])){
+               $filterdEmail = filter_var($_POST['email'] , FILTER_SANITIZE_EMAIL);
+               if(filter_var($filterdEmail, FILTER_VALIDATE_EMAIL) != true){
+                    $formErrors[] = 'This Email Not Valid';
                }
           }
      } 
@@ -96,27 +106,34 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
      <form class="signup" action="<?php echo $_SERVER['PHP_SELF'] ?>"  method="POST">
           <div class="input-container">
            <input 
+                pattern=".{4,8}"
+                title= "username must be between 4 chars"
                 class= "form-control" 
                 type="text" 
                 name="username" 
                 autocomplete="off" 
-                placeholder="Type Your Username" />
+                placeholder="Type Your Username" 
+                required/>
         </div>  
         <div class="input-container">   
            <input 
+                minlength="4"
                 class= "form-control" 
                 type="password" 
                 name="password" 
                 autocomplete="new-password" 
-                placeholder="Type a Complex Password" />
+                placeholder="Type a Complex Password" 
+                required/>
         </div>
         <div class="input-container">
             <input 
+                minlength="4"
                 class= "form-control" 
                 type="password" 
                 name="password2" 
                 autocomplete="new-password" 
-                placeholder="Type a password again" />
+                placeholder="Type a password again" 
+                required/>
         </div>
         <div class="input-container">
             <input 
