@@ -8,7 +8,7 @@ include 'init.php';
 //check if user coming from HTTP POST REQUEST
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-     if(isset($_post['login'])){
+     if(isset($_POST['login'])){
 
 
           $user = $_POST['username'];
@@ -41,7 +41,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
              // echo 'welcome' . $username; 
 
           }
-     }   
+     } else {
+          $formErrors = array();
+          if(isset($_POST['username'])){
+               $filterdUser = filter_var($_POST['username'] , FILTER_SANITIZE_STRING);
+               if(strlen($filterdUser) < 4){
+                    $formErrors[] = 'Username Must Be Larger Than 4 Character';
+               }
+          }
+          if(isset($_POST['password']) && isset($_POST['password2'])){
+               $pass1 = sha1($_POST['password']);
+               $pass2 = sha1($_POST['password2']);
+               if($pass1 !== $pass2){
+                    $formErrors[] = 'sorry Password Is Not Match';
+               }
+          }
+     } 
 
 }
 
@@ -119,6 +134,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
      </form>
      <!---end signup form--->
+     <div class="the-error text-center">
+          <?php
+          if(!empty($formErrors)){
+               foreach($formErrors as $error){
+                    echo $error . '<br>';
+               }
+          }
+          ?>
+
+     </div>
 </div>
 
 <?php

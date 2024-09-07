@@ -32,6 +32,7 @@ Progress Videos :
 90-           
 91- create fetch member data and display it on the Profile page   
 92- fetch member advertisements and comments on the Profile page  
-93- Split the forms within the request and deal with them.
+93- Split the forms within the request and deal with them.  
+94- filter user&password input
 
 
