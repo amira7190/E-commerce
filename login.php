@@ -8,14 +8,17 @@ include 'init.php';
 //check if user coming from HTTP POST REQUEST
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-     $user = $_POST['username'];
-     $pass = $_POST['password'];
-     $hashedPass= sha1($pass);
-    // echo  $password ;
+     if(isset($_post['login'])){
+
+
+          $user = $_POST['username'];
+          $pass = $_POST['password'];
+          $hashedPass= sha1($pass);
+          // echo  $password ;
 
     
-     //Check If The USer Exist In Database
-     $stmt = $con->prepare("SELECT      
+            //Check If The USer Exist In Database
+          $stmt = $con->prepare("SELECT      
                              
                               Username , Password
                          FROM 
@@ -25,19 +28,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                          AND 
                               Password = ?  ");
 
-     $stmt->execute(array($user , $hashedPass));
-     $count=$stmt->rowCount();
+          $stmt->execute(array($user , $hashedPass));
+          $count=$stmt->rowCount();
      
      
-     //if count>0 this mean the database contain record about this username
-     if ($count > 0){
-         $_SESSION['user'] = $user; //register session name
-          header('Location : index.php'); //Redirect To Dashboard Page
-          exit();
+          //if count>0 this mean the database contain record about this username
+          if ($count > 0){
+              $_SESSION['user'] = $user; //register session name
+              header('Location : index.php'); //Redirect To Dashboard Page
+              exit();
           
-         // echo 'welcome' . $username; 
+             // echo 'welcome' . $username; 
 
-     }
+          }
+     }   
 
 }
 
@@ -67,13 +71,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 placeholder="Type Your Password" />
            <input 
                 class= "btn btn-primary btn-block" 
+                name="login"
                 type="submit" 
                 value="Login"/>
         </div>
      </form>
      <!---end login form--->
      <!---start signup form--->
-     <form class="signup">
+     <form class="signup" action="<?php echo $_SERVER['PHP_SELF'] ?>"  method="POST">
           <div class="input-container">
            <input 
                 class= "form-control" 
@@ -108,6 +113,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <div class="input-container">
            <input 
                 class= "btn btn-success btn-block" 
+                name="signup"
                 type="submit" 
                 value="Signup"/>
         </div>
