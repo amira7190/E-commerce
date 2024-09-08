@@ -122,7 +122,7 @@ $pageTitle = 'Members';
                                   <div class="form-group form-group-lg">
                                       <label class = "col-sm-2 control-label"> Full Name</label>
                                       <div class="col-sm-10">
-                                             <input type="text" name="full"  class="form-control"  required = "required" placeholder =""/>
+                                             <input type="text" name="full"  class="form-control"   placeholder =""/>
                                       </div>
                                   </div>
                                         <!-- end fullname filed -->
