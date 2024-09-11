@@ -49,6 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
           $password = $_POST['password'];
           $password2 = $_POST['password2'];
           $email    = $_POST['email'];
+          $name = $_POST['fullname'];
 
           $formErrors = array();
           if(isset($username)){
@@ -86,12 +87,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                            //Insert user info in database
 
                                 $stmt = $con->prepare("INSERT INTO 
-                                                        users(Username, Password, Email ,RegStatus, Date)
-                                                        VALUES(:zuser, :zpass, :zmail , 0,now())");
+                                                        users(Username, Password, Email ,FullName ,RegStatus, Date)
+                                                        VALUES(:zuser, :zpass, :zmail , :zname , 0,now())");
                                 $stmt->execute(array(
                                            'zuser' => $username,
                                            'zpass' => sha1($password),
-                                           'zmail' => $email
+                                           'zmail' => $email,
+                                           'zname' => $name
                                  ));
 
                                  //Echo success messag
@@ -173,6 +175,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 type="email" 
                 name="email" 
                 placeholder="Type a valid email" />
+        </div>
+        <div class="input-container">
+            <input 
+                class= "form-control" 
+                type="text" 
+                name="fullname" 
+                placeholder="Type full name" />
         </div>
         <div class="input-container">
            <input 

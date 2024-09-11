@@ -34,6 +34,8 @@ Progress Videos :
 92- fetch member advertisements and comments on the Profile page  
 93- Split the forms within the request and deal with them.  
 94- filter user&password input  
-95- filter email part2 input
+95- filter email part2 input  
+96- add user to database    
+97- design profile page
 
 
