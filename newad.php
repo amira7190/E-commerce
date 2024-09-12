@@ -12,7 +12,7 @@ if(isset($_SESSION['user'])){
         $country   = filter_var($_POST['country'], FILTER_SANITIZE_STRING);
         $status    = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
         $category  = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
-    }
+    
     if(strlen($name) < 4){
         $formErrors[] = ' item title must be at least 4 character';
     }
@@ -31,10 +31,33 @@ if(isset($_SESSION['user'])){
     if(empty($category)){
         $formErrors[] = ' item category must be not empty';
     }
+     
+ //check if theres no error proceed the update operation 
+ if (empty ($formErrors)){
+
+    $stmt = $con->prepare("INSERT INTO 
+                            items(Name, Description, Price, Add_Date, Country_Made  ,Status ,Cat_ID, Member_ID)
+                            VALUES(:zname, :zdesc, :zprice , now(), :zcountry  ,:zstatus ,:zcat, :zmember)");
+    $stmt->execute(array(
+               'zname'      => $name,
+               'zdesc'      => $desc,
+               'zprice'     => $price,
+               'zcountry'   => $country,
+               'zstatus'    => $status,
+               'zcat'		=> $category,
+               'zmember'	=> $_SESSEION['uid']
+       
 
 
+     ));
 
-   
+     //Echo success messag
+            if($stmt){
+                echo'Item Added';
+            }
+
+  }
+} 
 ?>
 <h1 class="text-center"><?php echo $pageTitle ?></h1>
 <div class="create-ad block">

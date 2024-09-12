@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //Check If The USer Exist In Database
           $stmt = $con->prepare("SELECT      
                              
-                              Username , Password
+                              UserID   , Username , Password
                          FROM 
                               users 
                          WHERE 
@@ -32,12 +32,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                               Password = ?  ");
 
           $stmt->execute(array($user , $hashedPass));
+          $get = $stmt->fetch();
           $count=$stmt->rowCount();
      
      
           //if count>0 this mean the database contain record about this username
           if ($count > 0){
               $_SESSION['user'] = $user; //register session name
+              $_SESSION['uid'] = $get['UserID']; //register session userid
+
               header('Location : index.php'); //Redirect To Dashboard Page
               exit();
           
