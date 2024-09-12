@@ -1,15 +1,15 @@
 <?php
 session_start();
-$pageTitle = 'Create New Ad';
+$pageTitle = 'Create New Item';
 include 'init.php';
 if(isset($_SESSION['user'])){
    
 ?>
-<h1 class="text-center">Create New Ad</h1>
+<h1 class="text-center"><?php echo $pageTitle ?></h1>
 <div class="create-ad block">
     <div class="container">
         <div class="card">
-            <div class="card-header">Create New Ad</div>
+            <div class="card-header"> <?php echo $pageTitle ?></div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
@@ -18,7 +18,7 @@ if(isset($_SESSION['user'])){
 
                                      <!-- Start name filed -->
                                 <div class="form-group form-group-lg">
-                                    <label class = "col-sm-2 control-label"> Name</label>
+                                    <label class = "col-sm-3 control-label"> Name</label>
                                      <div class="col-sm-10 col-md-9">
                                          <input 
                                               type="text" 
@@ -32,7 +32,7 @@ if(isset($_SESSION['user'])){
                                       
                                        <!-- Start description filed -->
                                 <div class="form-group form-group-lg">
-                                    <label class = "col-sm-2 control-label"> Description</label>
+                                    <label class = "col-sm-3 control-label"> Description</label>
                                      <div class="col-sm-10 col-md-9">
                                          <input 
                                               type="text" 
@@ -46,7 +46,7 @@ if(isset($_SESSION['user'])){
 
                                          <!-- Start Price filed -->
                                 <div class="form-group form-group-lg">
-                                    <label class = "col-sm-2 control-label"> Price</label>
+                                    <label class = "col-sm-3 control-label"> Price</label>
                                      <div class="col-sm-10 col-md-9">
                                          <input 
                                               type="text" 
@@ -59,7 +59,7 @@ if(isset($_SESSION['user'])){
                                        <!-- end price filed -->
                                         <!-- Start Country filed -->
                                 <div class="form-group form-group-lg">
-                                    <label class = "col-sm-2 control-label">country </label>
+                                    <label class = "col-sm-3 control-label">country </label>
                                      <div class="col-sm-10 col-md-9">
                                          <input 
                                               type="text" 
@@ -74,7 +74,7 @@ if(isset($_SESSION['user'])){
 
                                        <!-- Start status filed -->
                                 <div class="form-group form-group-lg">
-                                    <label class = "col-sm-2 control-label">Status</label>
+                                    <label class = "col-sm-3 control-label">Status</label>
                                      <div class="col-sm-10 col-md-9">
                                          <select class = "form-control" name="status">
                                          
@@ -89,7 +89,7 @@ if(isset($_SESSION['user'])){
                                        <!-- end status filed -->
                                         <!-- Start category filed -->
                                 <div class="form-group form-group-lg">
-                                    <label class = "col-sm-2 control-label">category</label>
+                                    <label class = "col-sm-3 control-label">category</label>
                                      <div class="col-sm-10 col-md-9">
                                          <select class = "form-control" name="category">
                                          <?php
@@ -113,7 +113,7 @@ if(isset($_SESSION['user'])){
                                         
                                         <!-- Start submit filed -->
                                    <div class="form-group form-group-lg">
-                                        <div class=" col-sm-offset-2 col-sm-10">
+                                        <div class=" col-sm-offset-3 col-sm-10">
                                                <input type="submit" value="Save Item" class="btn btn-primary btn-sm" />
                                          </div>
                                    </div>
