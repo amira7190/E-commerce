@@ -65,6 +65,8 @@ if(isset($_SESSION['user'])){
                                 echo'</div>';
                             }
                             echo'</div>';
+                        }else {
+                            echo 'sorry theres no add to show , creat <a href="newad.php">New Ad</a>';
                         }
                 ?>
             </div>
