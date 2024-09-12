@@ -38,6 +38,7 @@ Progress Videos :
 96- add user to database    
 97- design profile page  
 98- create item add page  
-99- item add page 2
+99- item add page 2   
+100- add loopin through error
 
 
