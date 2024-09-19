@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 session_start();
 $pageTitle = 'Create New Item';
 include 'init.php';
@@ -45,14 +49,14 @@ if(isset($_SESSION['user'])){
                'zcountry'   => $country,
                'zstatus'    => $status,
                'zcat'		=> $category,
-               'zmember'	=> $_SESSEION['uid']
+               'zmember'	=> $_SESSION['uid']
        
 
 
      ));
 
      //Echo success messag
-            if($stmt){
+            if($stmt->rowcount() > 0){
                 echo'Item Added';
             }
 
@@ -79,7 +83,7 @@ if(isset($_SESSION['user'])){
                                               name="name" 
                                               class="form-control live-name" 
                                               placeholder="Name Of The Item"
-                                              value="<?php echo $item['Name'] ?>"/>
+                                              />
                                       </div>
                                  </div>
                                       <!-- end name filed -->
@@ -93,7 +97,7 @@ if(isset($_SESSION['user'])){
                                               name="description" 
                                               class="form-control live-desc" 
                                               placeholder="Description Of The Item"
-                                              value="<?php echo $item['Description'] ?>"/>
+                                              />
                                       </div>
                                  </div>
                                        <!-- end description filed -->
@@ -107,7 +111,7 @@ if(isset($_SESSION['user'])){
                                               name="price" 
                                               class="form-control live-price" 
                                               placeholder="Price Of The Item"
-                                              value="<?php echo $item['Price'] ?>"/>
+                                              />
                                       </div>
                                  </div>
                                        <!-- end price filed -->
@@ -121,7 +125,7 @@ if(isset($_SESSION['user'])){
                                               class="form-control" 
      
                                               placeholder="country of made"
-                                              value="<?php echo $item['Country_Made'] ?>"/>
+                                              />
                                       </div>
                                  </div>
                                        <!-- end price filed -->
@@ -131,11 +135,11 @@ if(isset($_SESSION['user'])){
                                     <label class = "col-sm-3 control-label">Status</label>
                                      <div class="col-sm-10 col-md-9">
                                          <select class = "form-control" name="status">
-                                         
-                                         <option value="1"<?php if($item['Status'] == 1 ){ echo 'selected';} ?>   >NEW</option>
-                                         <option value="2" <?php if($item['Status'] == 2 ){ echo 'selected';} ?> > LIKE NEW</option>
-                                         <option value="3" <?php if($item['Status'] == 3 ){ echo 'selected';} ?> >USED</option>
-                                         <option value="4" <?php if($item['Status'] == 4 ){ echo 'selected';} ?> >VERY OLD</option>
+                                         <option value="0" >...</option>
+                                         <option value="1" >NEW</option>
+                                         <option value="2"  > LIKE NEW</option>
+                                         <option value="3"  >USED</option>
+                                         <option value="4" >VERY OLD</option>
                                          
                                          </select>
                                       </div>
@@ -153,8 +157,7 @@ if(isset($_SESSION['user'])){
                                           $cats= $stmt2->fetchAll();
                                           foreach($cats as $cat){
                                              echo "<option value='" .$cat['ID']."'";
-                                             if($item['Cat_ID'] == $cat['ID'] ){ echo 'selected';}
-                                             echo">" .$cat['Name']."</option> ";
+                                             
                                           }
 
                                          ?>

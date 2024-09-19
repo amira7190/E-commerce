@@ -40,7 +40,8 @@ Progress Videos :
 98- create item add page  
 99- item add page 2   
 100- add loopin through error   
-101- check if theres no error proceed the update operation 
+101- check if theres no error proceed the update operation  
+102 - create show item page
 
 
 
