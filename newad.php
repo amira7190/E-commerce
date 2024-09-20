@@ -16,7 +16,12 @@ if(isset($_SESSION['user'])){
         $country   = filter_var($_POST['country'], FILTER_SANITIZE_STRING);
         $status    = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
         $category  = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
+
     
+
+        
+
+
     if(strlen($name) < 4){
         $formErrors[] = ' item title must be at least 4 character';
     }
@@ -40,7 +45,7 @@ if(isset($_SESSION['user'])){
  if (empty ($formErrors)){
 
     $stmt = $con->prepare("INSERT INTO 
-                            items(Name, Description, Price, Add_Date, Country_Made  ,Status ,Cat_ID, Member_ID)
+                            items(Name, Description, Price, Add_Date, Country_Made  ,Status ,Cat_ID, Member_ID )
                             VALUES(:zname, :zdesc, :zprice , now(), :zcountry  ,:zstatus ,:zcat, :zmember)");
     $stmt->execute(array(
                'zname'      => $name,
@@ -156,7 +161,7 @@ if(isset($_SESSION['user'])){
                                           $stmt2->execute();
                                           $cats= $stmt2->fetchAll();
                                           foreach($cats as $cat){
-                                             echo "<option value='" .$cat['ID']."'";
+                                            echo "<option value='" . $cat['ID'] . "'>" . $cat['Name'] . "</option>";
                                              
                                           }
 

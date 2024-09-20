@@ -15,9 +15,22 @@ $pageTitle = 'Items';
                
      
                     //Select All Users Execept Admin//
-                    $stmt = $con->prepare("SELECT * FROM items
-                                                    ORDER BY 
-                                                         Item_ID DESC");
+                    $stmt = $con->prepare("SELECT 
+                                                items.*, 
+										categories.Name AS category_name, 
+										users.Username 
+									FROM 
+										items
+									INNER JOIN 
+										categories 
+									ON 
+										categories.ID = items.Cat_ID 
+									INNER JOIN 
+										users 
+									ON 
+										users.UserID = items.Member_ID
+									ORDER BY 
+										Item_ID DESC");
                     //Execute The Statement
                     $stmt ->execute();
                     //Assign To Variable
