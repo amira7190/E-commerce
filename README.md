@@ -42,7 +42,8 @@ Progress Videos :
 100- add loopin through error   
 101- check if theres no error proceed the update operation  
 102 - create show item page  
-103- create show item page 2
+103- create show item page 2   
+104-Make some edits to the categories&profile page
 
 
 

@@ -8,8 +8,7 @@ include 'init.php';
 
          //echo $userid;
 
-         //Select All Data Depend On Thid ID 
-        $stmt = $con->prepare("SELECT * FROM items WHERE  Item_ID = ?  ");
+        
          // Select All Data Depend On This ID
 	$stmt = $con->prepare("SELECT 
                                   items.*, 
@@ -26,9 +25,7 @@ include 'init.php';
                               ON 
                                   users.UserID = items.Member_ID 
                               WHERE 
-                                  Item_ID = ?
-                              AND 
-                                 Approve = 1");
+                                  Item_ID = ? ");
 
         //Execute Query
       $stmt->execute(array($itemid));
@@ -45,14 +42,31 @@ include 'init.php';
     <div class="col-md-3">
     <img class="img-fluid img-card center-block" src="avatar.png"  alt=""  >
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 item-info">
       <h2><?php echo $item['Name'] ?></h2>
       <p><?php echo $item['Description'] ?></p>
-      <span><?php echo $item['Add_Date'] ?></span>
-      <div> Price: $<?php echo $item['Price'] ?></div>
-      <div> Made In : <?php echo $item['Country_Made'] ?></div>
-      <div> category : <?php echo $item['Category_name'] ?></div>
-      <div> Added by : <?php echo $item['Username'] ?></div>
+      <ul class="list-unstyled">
+            <li>
+              <i class=" fa fa-calendar fa-fw"></i>
+            <span><?php echo $item['Add_Date'] ?></span>
+          </li>
+            <li>
+            <i class=" fa fa-money fa-fw"></i>
+            <span> Price</span>  : $<?php echo $item['Price'] ?>
+          </li>
+            <li>
+            <i class=" fa fa-building fa-fw"></i>
+              <span> Made In</span> : <?php echo $item['Country_Made'] ?>
+            </li>
+            <li>
+            <i class=" fa fa-tags fa-fw"></i>
+              <span> category</span> :<a href="categories.php?pageid= <?php echo $item['Cat_ID'] ?> ">  <?php echo $item['category_name'] ?></a>
+            </li>
+            <li>
+            <i class=" fa fa-user fa-fw"></i>
+              <span> Added by </span>:<a href="#"> <?php echo $item['Username'] ?></a>
+            </li> 
+      </ul>
 
 
 
@@ -60,6 +74,15 @@ include 'init.php';
 
 
 
+    </div>
+  </div>
+  <hr class="custom-hr">
+  <div class="row">
+    <div class="col-md-3">
+      User Image
+    </div>
+    <div class="col-md-9">
+      User Comment
     </div>
   </div>
 </div>
