@@ -77,6 +77,33 @@ include 'init.php';
     </div>
   </div>
   <hr class="custom-hr">
+
+  <?php if(isset($_SESSION['user'])){ ?>
+
+  <!--Start Add Comment-->
+  <div class="row">
+    <div class="col-md-offset-3">
+      <div class="add-comment">
+
+        <h3>Add Your Comment</h3>
+        <form action=" <?php echo $_SERVER['PHP_SELF'] .'?itemid=' . $item['Item_ID'] ?>" method="POST">
+          <textarea name="comment"></textarea>
+          <input class="btn btn-primary" type="submit" value="Add Comment">
+        </form>
+        <?php
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          echo $_POST['comment'];
+        }
+        ?>
+      </div>
+    </div>
+  </div>
+  <!-- End Add Comment-->
+   <?php }else{
+    echo '<a href ="login.php">Login</a> Or <a href="login.php">Register</a> To Add Comment';
+
+   } ?>
+  <hr class="custom-hr">
   <div class="row">
     <div class="col-md-3">
       User Image
