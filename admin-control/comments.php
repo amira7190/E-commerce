@@ -38,7 +38,7 @@ $pageTitle = 'comments';
                //Execute The Statement
                $stmt ->execute();
                //Assign To Variable
-               $rows =$stmt->fetchAll();
+               $comments =$stmt->fetchAll();
             
             
             
@@ -69,7 +69,7 @@ $pageTitle = 'comments';
                                                        <a href='comments.php?do=Edit&comid= " .$comment['c_id'] ." 'class='btn btn-success'><i class='fa fa-edit'></i>Edit</a>
                                                        <a href= 'comments.php?do=Delete&comid= " .$comment['c_id']. " 'class='btn btn-danger confirm'><i class='fa fa-close'></i>Delete</a>";
                                         
-                                                       if($row['status'] == 0){
+                                                       if($comment['status'] == 0){
                                                              echo" <a 
                                                              href= 'comments.php?do=Approve&comid= " .$comment['c_id']. " '
                                                              class='btn btn-info activate '>
@@ -140,7 +140,7 @@ $pageTitle = 'comments';
                          else {
                               echo "<div class = 'container'>";
                                    $theMsg = '<div class = "alert alert-danger">Theres Is No Such ID </div>';
-                                   redirectHome($theMsg ,);
+                                   redirectHome($theMsg ,'back');
                               echo "</div>";
                               }       
             
@@ -167,7 +167,7 @@ $pageTitle = 'comments';
 
            }else{
                     $theMsg= '<div class = "alert alert-danger">you cant Browse this page directly</div>';
-                    redirectHome($theMsg);
+                    redirectHome($theMsg , 'back');
                 } 
             echo "</div>";          
 

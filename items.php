@@ -92,7 +92,26 @@ include 'init.php';
         </form>
         <?php
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-          echo $_POST['comment'];
+            $comment   = filter_var($_POST['comment'] , FILTER_SANITIZE_STRING);
+            $userid    = $_SESSION['uid'];
+            $itemid    = $item['Item_ID'];
+            if(! empty($comment)){
+              $stmt = $con->prepare("INSERT INTO
+                    comments(comment, status, comment_date, item_id, user_id)
+                    VALUES(:zcomment, 0 , NOW(), :zitemid, :zuserid)
+              ");
+              $stmt->execute(array(
+                'zcomment' => $comment,
+                'zitemid'  => $itemid,
+                'zuserid'  => $userid
+              ));
+              if($stmt->rowCount() > 0){
+                echo '<div class="alert alert-success">Comment Added</div>';
+            }else{
+              echo'nothing';
+            }
+            
+            }
         }
         ?>
       </div>
@@ -104,14 +123,50 @@ include 'init.php';
 
    } ?>
   <hr class="custom-hr">
-  <div class="row">
-    <div class="col-md-3">
-      User Image
-    </div>
-    <div class="col-md-9">
-      User Comment
-    </div>
-  </div>
+  <?php
+                  //Select All Users Execept Admin//
+                  $stmt = $con->prepare("SELECT 
+                  comments.*, users.Username AS Member 
+              FROM 
+                  comments
+              INNER JOIN
+                  users
+              ON
+                  users.UserID = comments.user_id
+              WHERE 
+                  item_id = ?
+              AND
+                  status = 1
+              ORDER BY
+                  c_id DESC
+              ");
+             //Execute The Statement
+            $stmt ->execute(array($item['Item_ID']));
+            //Assign To Variable
+            $comments =$stmt->fetchAll();
+            
+      ?>
+  
+    <?php
+        foreach($comments as $comment){ ?>
+        <div class="comment-box">
+                
+                <div class="row">
+                  <div class = "col-sm-2 text-center d-block m-auto">
+                  <img class="img-fluid rounded-circle img-responsive" src="avatar.png"  alt=""  />
+                    
+                  <?php echo $comment['Member'] ?> </div>
+                  
+                  <div class = "col-sm-10">
+                    <p class="lead"><?php echo $comment['comment'] ?> </p>
+                  </div>
+
+                </div>
+        </div>
+<hr class="custom-hr">
+
+   <?php }
+    ?>
 </div>
 
 <?php }else{

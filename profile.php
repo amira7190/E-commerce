@@ -56,7 +56,7 @@ if(isset($_SESSION['user'])){
                                 echo'<div class="col-sm-6 col-md-3">'; 
                                     echo'<div class="card item-box">';
                                         echo'<span class="price-tag">' .$item['Price'] . '</span>';
-                                        echo'<img class=img-fluid" src="avatar.png"  alt=""  />';
+                                        echo'<img class="img-fluid" src="avatar.png"  alt=""  />';
                                         echo '<div class="caption">';
                                             echo'<h3><a href="items.php?itemid='.$item['Item_ID'] .'">' .$item['Name']. '</a></h3>';
                                             echo'<p>' .$item['Description']. '</p>';
