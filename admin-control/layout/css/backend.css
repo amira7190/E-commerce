@@ -41,7 +41,7 @@ body{
 .navbar{
     border-radius: 0;
     margin-bottom: 0;
-    background-color: black;
+    background-color: rgb(187, 184, 184);
 }
 .nav > .li > a,
 .navbar-brand{

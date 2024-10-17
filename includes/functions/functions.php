@@ -16,15 +16,20 @@
 
 
   /*
-  **Get L Items Function v 1.0
-  **Function To  Get items From Database 
+  **Get  ADD Items Function v 1.0
+  **Function To  Get add items From Database 
   **
   **
   **
   */
-  function getItems($where, $value){
+  function getItems($where, $value , $approve = NULL){
      global $con;
-     $getItems = $con->prepare("SELECT * FROM items WHERE $where = ?  ORDER BY Item_ID DESC");
+     if($approve == NULL){
+          $sql = 'AND Approve = 1';
+     }else{
+          $sql = NULL;
+     }
+     $getItems = $con->prepare("SELECT * FROM items WHERE $where = ? $sql  ORDER BY Item_ID DESC");
      $getItems->execute(array($value));
      $items = $getItems->fetchAll();
      return $items;

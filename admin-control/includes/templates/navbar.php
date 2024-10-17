@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-dark ">
+<nav class="navbar navbar-expand-lg  ">
   <div class="container">
     <a class="navbar-brand" href="dashboard.php"><?php  echo lang ('HOME_ADMIN') ?></a>
     <button class="navbar-toggler border-secondry" type="button" data-bs-toggle="collapse" data-bs-target="#app-nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
