@@ -13,23 +13,24 @@
     <div class="upper-bar">
         <div class="container">
             <?php
-              if(isset($_SESSION['user'])){
+              if(isset($_SESSION['user'])){?>
+                 <!-- Example split danger button -->
+                <div class="btn-group my-info">
+                      <span class="btn dropdown-toggle" data-toggle="dropdown">
+                        <?php echo $sessionUser ?>
+                        <span class="caret"></span>
 
-                echo 'welcom' . $_SESSION['user'];
-                echo '<a href="profile.php">My Profile</a>';
-                echo ' - <a href="newad.php">New Ad</a>';
-                echo ' - <a href="logout.php">Log Out</a>';
+                      </span>
+                     <ul class="dropdown-menu">
+                        <li><a href="profile.php">My Profile</a></li>
+                        <li><a href="newad.php">New Item</a></li>
+                        <li><a href="logout.php">Log Out</a></li>
+                     </ul>
+                </div>
 
+                
 
-                $userStatus = checkUserStatus($_SESSION['user']);
-
-                if($userStatus == 1){
-
-                  //User Is Not Active
-
-
-
-                }
+                <?php
               }else{
 
               

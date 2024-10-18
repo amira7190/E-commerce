@@ -25,7 +25,9 @@ include 'init.php';
                               ON 
                                   users.UserID = items.Member_ID 
                               WHERE 
-                                  Item_ID = ? ");
+                                  Item_ID = ? 
+                              AND 
+                                  Approve = 1");
 
         //Execute Query
       $stmt->execute(array($itemid));
@@ -87,7 +89,7 @@ include 'init.php';
 
         <h3>Add Your Comment</h3>
         <form action=" <?php echo $_SERVER['PHP_SELF'] .'?itemid=' . $item['Item_ID'] ?>" method="POST">
-          <textarea name="comment"></textarea>
+          <textarea name="comment required"></textarea>
           <input class="btn btn-primary" type="submit" value="Add Comment">
         </form>
         <?php

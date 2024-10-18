@@ -123,6 +123,14 @@ h1{
     padding: 2px 10px;
     background-color: #B4B4B4;
 }
+.item-box .approve-status{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #b85a5a;
+    color: #FFF;
+    padding: 3px 5px;
+}
 /* End categories  */
 /*start profile page*/
 .information{
@@ -141,6 +149,9 @@ h1{
 .information ul li span{
     display: inline-block;
     width: 120px;
+}
+.information .btn{
+    margin-top: 10px;
 }
 .card .date{
     text-align: right;

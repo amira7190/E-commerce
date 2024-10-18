@@ -40,6 +40,7 @@ if(isset($_SESSION['user'])){
                         <span> Favourite Category </span> : 
                     </li>
                 </ul>
+                <a href="#" class="btn btn-default">Edit Information</a>
             </div>
         </div>
     </div>
@@ -55,7 +56,9 @@ if(isset($_SESSION['user'])){
                             foreach(getItems('Member_ID',$info['UserID'] , 1) as $item){
                                 echo'<div class="col-sm-6 col-md-3">'; 
                                     echo'<div class="card item-box">';
-                                        if($item['Approve'] == 0){ echo 'Not Approved';};
+                                        if($item['Approve'] == 0){
+                                             echo  '<span class="approve-status">Waiting Approval</span>'   ;
+                                            };
                                         echo'<span class="price-tag">' .$item['Price'] . '</span>';
                                         echo'<img class="img-fluid" src="avatar.png"  alt=""  />';
                                         echo '<div class="caption">';

@@ -62,7 +62,7 @@ if(isset($_SESSION['user'])){
 
      //Echo success messag
             if($stmt->rowcount() > 0){
-                echo'Item Added';
+                $succesMsg = 'Item Has Been Added';
             }
 
   }
@@ -84,10 +84,12 @@ if(isset($_SESSION['user'])){
                                     <label class = "col-sm-3 control-label"> Name</label>
                                      <div class="col-sm-10 col-md-9">
                                          <input 
+                                              pattern=".{4,}"
                                               type="text" 
                                               name="name" 
                                               class="form-control live-name" 
                                               placeholder="Name Of The Item"
+                                              required
                                               />
                                       </div>
                                  </div>
@@ -98,10 +100,12 @@ if(isset($_SESSION['user'])){
                                     <label class = "col-sm-3 control-label"> Description</label>
                                      <div class="col-sm-10 col-md-9">
                                          <input 
+                                              pattern=".{10,}"
                                               type="text" 
                                               name="description" 
                                               class="form-control live-desc" 
                                               placeholder="Description Of The Item"
+                                              required
                                               />
                                       </div>
                                  </div>
@@ -128,7 +132,6 @@ if(isset($_SESSION['user'])){
                                               type="text" 
                                               name="country" 
                                               class="form-control" 
-     
                                               placeholder="country of made"
                                               />
                                       </div>
@@ -157,9 +160,8 @@ if(isset($_SESSION['user'])){
                                          <select class = "form-control" name="category">
                                          <?php
 
-                                          $stmt2= $con->prepare("SELECT * FROM categories");
-                                          $stmt2->execute();
-                                          $cats= $stmt2->fetchAll();
+                                          $cats= getAllFrom('categories' , 'ID');
+                                          
                                           foreach($cats as $cat){
                                             echo "<option value='" . $cat['ID'] . "'>" . $cat['Name'] . "</option>";
                                              
@@ -202,6 +204,9 @@ if(isset($_SESSION['user'])){
                       echo'<div class ="alert alert-danger">' . $error . '</div>';
                    }
                 }
+                if(isset($succesMsg)){
+                    echo '<div class="alert alert-success">' .$succesMsg. '</div>';
+               }
                 ?>
                 <!-- end looping through errors-->
 

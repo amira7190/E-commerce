@@ -1,5 +1,21 @@
 <?php
 /*
+  **Get ALL Function v 1.0
+  **Function To  Get All Records From Any Database Table 
+  **
+  **
+  **
+  */
+  function getAllFrom($tableName , $orederBy){
+     global $con;
+     $getAll = $con->prepare("SELECT * FROM $tableName ORDER BY $orederBy DESC");
+     $getAll->execute();
+     $all = $getAll->fetchAll();
+     return $all;
+  }
+
+
+/*
   **Get L Categories Function v 1.0
   **Function To  Get categories From Database 
   **
