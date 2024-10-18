@@ -4,7 +4,9 @@
         <h1 class="text-center">show category</h1>
         <div class="row">
             <?php
-                foreach(getItems('Cat_ID',$_GET['pageid']) as $item){
+
+                $allItems = getAllFrom("*","items" ,"where Cat_ID = {$_GET['pageid']}" ,"AND Approve = 1","Item_ID", "ASC");
+                foreach($allItems as $item){
                         echo'<div class="col-sm-6 col-md-3">'; 
                             echo'<div class="card item-box">';
                             echo'<span class="price-tag">' .$item['Price'] . '</span>';

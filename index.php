@@ -8,7 +8,7 @@ include 'init.php';
 <div class="container">
         <div class="row">
             <?php
-            $allItems = getAllFrom('items' , 'Item_ID');
+            $allItems = getAllFrom('*','items' ,'where Approve = 1', '','Item_ID');
                 foreach($allItems as $item){
                         echo'<div class="col-sm-6 col-md-3">'; 
                             echo'<div class="card item-box">';

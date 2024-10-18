@@ -1,15 +1,14 @@
 <?php
 /*
-  **Get ALL Function v 1.0
+  **Get ALL Function v 2.0
   **Function To  Get All Records From Any Database Table 
   **
   **
   **
   */
-  function getAllFrom($tableName , $orederBy , $where = NULL){
+  function getAllFrom($field , $table , $where = NULL , $and = NULL ,$orderfield ,$ordering ="DESC"){
      global $con;
-     $sql = $where == NULL ? '' : $where ;
-     $getAll = $con->prepare("SELECT * FROM $tableName  $sql ORDER BY $orederBy DESC");
+     $getAll = $con->prepare("SELECT $field FROM $table $where $and ORDER BY $orderfield  $ordering");
      $getAll->execute();
      $all = $getAll->fetchAll();
      return $all;
@@ -30,29 +29,6 @@
      $cats = $getCat->fetchAll();
      return $cats;
   }
-
-
-  /*
-  **Get  ADD Items Function v 1.0
-  **Function To  Get add items From Database 
-  **
-  **
-  **
-  */
-  function getItems($where, $value , $approve = NULL){
-     global $con;
-     $sql = $approve == NULL ? 'AND Approve = 1' : '' ;
-     if($approve == NULL){
-          $sql = 'AND Approve = 1';
-     }else{
-          $sql = NULL;
-     }
-     $getItems = $con->prepare("SELECT * FROM items WHERE $where = ? $sql  ORDER BY Item_ID DESC");
-     $getItems->execute(array($value));
-     $items = $getItems->fetchAll();
-     return $items;
-  }
-
 
   /*
   **check if user is not activated 
