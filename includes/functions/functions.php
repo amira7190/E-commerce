@@ -6,9 +6,10 @@
   **
   **
   */
-  function getAllFrom($tableName , $orederBy){
+  function getAllFrom($tableName , $orederBy , $where = NULL){
      global $con;
-     $getAll = $con->prepare("SELECT * FROM $tableName ORDER BY $orederBy DESC");
+     $sql = $where == NULL ? '' : $where ;
+     $getAll = $con->prepare("SELECT * FROM $tableName  $sql ORDER BY $orederBy DESC");
      $getAll->execute();
      $all = $getAll->fetchAll();
      return $all;
@@ -40,6 +41,7 @@
   */
   function getItems($where, $value , $approve = NULL){
      global $con;
+     $sql = $approve == NULL ? 'AND Approve = 1' : '' ;
      if($approve == NULL){
           $sql = 'AND Approve = 1';
      }else{
