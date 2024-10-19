@@ -116,6 +116,29 @@ $pageTitle = 'Categories';
                                        <!-- end ordering filed -->
 
 
+                                       <!-- start category type --> 
+
+
+                                  <div class="form-group form-group-lg">
+                                      <label class = "col-sm-2 control-label"> Parent?</label>
+                                      <div class="col-sm-10">
+                                        <select name="parent">
+                                             <option value="0">None</option>
+
+                                             <?php
+                                                  $allCats = getAllFrom("*", "categories" , "where parent = 0" , " " ,"ID" ,"ASC");
+                                                  foreach($allCats as $cat ){
+                                                       echo  "<option value='" . $cat['ID'] . "'>" . $cat['Name']    . "</option>";
+                                                  }
+                                             ?>
+
+                                        </select>
+                                      </div>
+                                  </div>
+
+
+                                       <!-- end category type --> 
+
                                         <!-- Start visibility filed -->
                                   <div class="form-group form-group-lg">
                                       <label class = "col-sm-2 control-label">  visible</label>
@@ -199,6 +222,7 @@ $pageTitle = 'Categories';
                                   //Get variable from the form
                                   $name   = $_POST['name'];
                                   $desc  = $_POST['description'];
+                                  $parent  = $_POST['parent'];
                                   $order  = $_POST['ordering'];
                                   $visible = $_POST['visibility'];
                                   $comment = $_POST['commenting'];
@@ -215,11 +239,12 @@ $pageTitle = 'Categories';
                                                     //Insert category info in database
 
                                                          $stmt = $con->prepare("INSERT INTO 
-                                                                                 categories(Name, Description, Ordering_View, Visibility ,Allow_Comment, Allow_Ads)
-                                                                                 VALUES(:zname, :zdesc, :zorder, :zvisible, :zcomment, :zads)");
+                                                                                 categories(Name, Description,parent, Ordering_View, Visibility ,Allow_Comment, Allow_Ads)
+                                                                                 VALUES(:zname, :zdesc,:zparent, :zorder, :zvisible, :zcomment, :zads)");
                                                          $stmt->execute(array(
                                                                     'zname'    => $name,
-                                                                    'zdesc'    => $desc,
+                                                                    'zdesc'    =>$desc,
+                                                                    'zparent'  =>$parent,
                                                                     'zorder'   => $order,
                                                                     'zvisible' => $visible,
                                                                     'zcomment' => $comment,

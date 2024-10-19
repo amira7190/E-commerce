@@ -55,7 +55,8 @@ Progress Videos :
 113- show ads in home page    
 114- updating function     
 115- Make The Ulitimate Get All Function     
-116- Make The Ulitimate Get All Function  2     
+116- Make The Ulitimate Get All Function  2    
+117- added parent category  
    
 
   

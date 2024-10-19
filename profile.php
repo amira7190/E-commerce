@@ -87,7 +87,7 @@ if(isset($_SESSION['user'])){
             <div class="card-header">Latest Comments</div>
             <div class="card-body">
             <?php
-               $myComments = getAllForm( "comment" , "comments" , " where user_id = $userid " , " " , "c_id" );
+               $myComments = getAllFrom( "comment" , "comments" , " where user_id = $userid " , " " , "c_id" );
                
                if(! empty($myComments)){
                     foreach($myComments as $comment ){
