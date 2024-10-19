@@ -51,7 +51,8 @@
     <div class="collapse navbar-collapse" id="app-nav">
       <ul class="navbar-nav navbar-right me-auto mb-2 mb-lg-0">
         <?php 
-           foreach(getCat() as $cat){
+        $allCats = getAllForm( "*", "categories" , " " , " ", "ID" , "ASC");
+           foreach($allCats as $cat){
                 echo '<li>
                         <a href="categories.php?pageid='. $cat['ID'].'">
                             '.$cat['Name'] .'

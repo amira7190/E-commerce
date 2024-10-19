@@ -11,6 +11,7 @@ if(isset($_SESSION['user'])){
                                 ");
     $getUser->execute(array($sessionUser));
     $info=$getUser->fetch();
+    $userid= $info['UserID'];
 ?>
 <h1 class="text-center">My Profile</h1>
 <div class="information block">
@@ -48,12 +49,13 @@ if(isset($_SESSION['user'])){
 <div class="my-ads block">
     <div class="container">
         <div class="card">
-            <div class="card-header">My Ads</div>
+            <div class="card-header">My Items</div>
             <div class="card-body">
                 <?php
-                        if(! empty(getItems('Member_ID',$info['UserID']))){
+                        $myItems= getAllForm( "*", "items" , "where Member_ID = $userid" , " ", "Item_ID" );
+                        if(! empty($myItems)){
                             echo '<div class="row">';
-                            foreach(getItems('Member_ID',$info['UserID'] , 1) as $item){
+                            foreach($myItems as $item){
                                 echo'<div class="col-sm-6 col-md-3">'; 
                                     echo'<div class="card item-box">';
                                         if($item['Approve'] == 0){
@@ -85,13 +87,10 @@ if(isset($_SESSION['user'])){
             <div class="card-header">Latest Comments</div>
             <div class="card-body">
             <?php
-               $stmt = $con->prepare("SELECT comment FROM comments WHERE user_id = ?  ");
-               //Execute The Statement
-               $stmt ->execute(array($info['UserID']));
-               //Assign To Variable
-               $comments =$stmt->fetchAll();
-               if(! empty($comments)){
-                    foreach($comments as $comment ){
+               $myComments = getAllForm( "comment" , "comments" , " where user_id = $userid " , " " , "c_id" );
+               
+               if(! empty($myComments)){
+                    foreach($myComments as $comment ){
                         echo '<p>'. $comment['comment'] . '</p>';
                     }
 
