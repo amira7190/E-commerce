@@ -214,6 +214,21 @@ body{
 .categories .add-category{
     margin-bottom: 30px;
 }
+.categories .child-head{
+    margin: 10px 0 10px 40px;
+    font-weight: bold;
+    color: #22ab79;
+}
+.categories .child-cats{
+    margin: 0 0 10px 40px;
+}
+.categories .child-cats li{
+    margin-left: 20px;
+}
+.categories .child-cats li:before{
+    content: "- ";
+}
+
 
 
 

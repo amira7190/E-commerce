@@ -56,7 +56,9 @@ Progress Videos :
 114- updating function     
 115- Make The Ulitimate Get All Function     
 116- Make The Ulitimate Get All Function  2    
-117- added parent category  
+117- added parent category    
+118- added parent category + some ideas 
+
    
 
   

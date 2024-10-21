@@ -27,7 +27,7 @@ $pageTitle = 'Categories';
                     $sort=$_GET['sort'];
                };
 
-               $stmt2 = $con->prepare("SELECT * FROM categories ORDER BY Ordering_View $sort");
+               $stmt2 = $con->prepare("SELECT * FROM categories  WHERE  parent = 0 ORDER BY Ordering_View $sort");
                $stmt2->execute();
                $cats = $stmt2->fetchAll(); ?>
                <h1 class="text-center">Manage Categories</h1>
@@ -63,8 +63,19 @@ $pageTitle = 'Categories';
                                             if($cat['Allow_Ads'] == 1) { echo '<span class="advertises" > <i class = "fa fa-close"></i>Ads Disabled<span/>';}
                                         echo "</div>";    
                                    echo "</div>";
-                                   echo "<hr>";
+                                   
 
+                                   //Get CHild Categories
+                                   $childCats = getAllFrom( "*", "categories" , " where parent = {$cat['ID']}" , " ", "ID" , "ASC");
+                                   if(! empty($childCats)){
+                                        echo " <h5 class ='child-head'> Child Categories</h5>";
+                                        echo  "<ul class='list-unstyled child-cats'> ";
+                                             foreach($childCats as $c){
+                                                       echo"<li><a href='categories.php?do=Edit&catid=" .$c['ID'] . "'>". $c['Name'] . "</li>";   
+                                             } 
+                                        echo "</ul>";
+                                   }
+                                   echo "<hr>";
 
 
 
