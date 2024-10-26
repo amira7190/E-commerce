@@ -1,1 +1,1 @@
-getAllForm( $field , $table , $where = NULL , $and = NULL , $orderfield , $ordering = 'DESC' )
+getAllFrom( $field , $table , $where = NULL , $and = NULL , $orderfield , $ordering = 'DESC' )

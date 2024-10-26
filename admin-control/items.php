@@ -150,7 +150,7 @@ $pageTitle = 'Items';
                                               placeholder="country of made"/>
                                       </div>
                                  </div>
-                                       <!-- end price filed -->
+                                       <!-- end Country filed -->
 
                                        <!-- Start status filed -->
                                 <div class="form-group form-group-lg">
@@ -174,11 +174,8 @@ $pageTitle = 'Items';
                                          <select class = "form-control" name="member">
                                          <option value="0">...</option>
                                          <?php
-
-                                          $stmt= $con->prepare("SELECT * FROM users");
-                                          $stmt->execute();
-                                          $users= $stmt->fetchAll();
-                                          foreach($users as $user){
+                                          $allMembers =getAllFrom( "*", "users" , "" , "" , "UserID"  );
+                                          foreach($allMembers as $user){
                                              echo "<option value='" .$user['UserID']."'>".$user['Username']."</option> ";
                                           }
 
@@ -196,12 +193,14 @@ $pageTitle = 'Items';
                                          <select class = "form-control" name="category">
                                          <option value="0">...</option>
                                          <?php
-
-                                          $stmt2= $con->prepare("SELECT * FROM categories");
-                                          $stmt2->execute();
-                                          $cats= $stmt2->fetchAll();
-                                          foreach($cats as $cat){
+                                          $allCats =getAllFrom( "*", "categories" , "" , "" , "ID"  );
+                                          foreach($allCats as $cat){
                                              echo "<option value='" .$cat['ID']."'>".$cat['Name']."</option> ";
+                                            $childCats = getAllFrom( "*", "categories" , " where parent = {$cat['ID']}" , " ", "ID" );
+                                            foreach($childCats as $child){
+                                                echo "<option value='" .$child['ID']."'>---  ".$child['Name']."</option> ";
+
+                                      } 
                                           }
 
                                          ?>
@@ -211,6 +210,19 @@ $pageTitle = 'Items';
                                       </div>
                                  </div>
                                        <!-- end category filed -->
+                                       <!--start tags field-->
+                                    <div class="form-group form-group-lg">
+                                        <label class = "col-sm-2 control-label">Tags </label>
+                                        <div class="col-sm-10">
+                                             <input 
+                                                type="text" 
+                                                name="tags" 
+                                                class="form-control" 
+     
+                                                placeholder="Separate Tag With Comma (,)"/>
+                                        </div>
+                                    </div>
+                                       <!-- end Tags filed -->
                                         
                                         <!-- Start submit filed -->
                                    <div class="form-group form-group-lg">
@@ -238,12 +250,14 @@ $pageTitle = 'Items';
                               echo "<div class = 'container'> ";
                                   //Get variable from the form
                                   $name    = $_POST['name'];
-                                  $desc  = $_POST['description'];
-                                  $price  = $_POST['price'];
-                                  $country= $_POST['country'];
+                                  $desc    = $_POST['description'];
+                                  $price   = $_POST['price'];
+                                  $country = $_POST['country'];
                                   $status  = $_POST['status'];
                                   $member  =$_POST['member'];
-                                  $cat  =$_POST['category'];
+                                  $cat     = $_POST['category'];
+                                  $tags    = $_POST['tags'];
+
 
 
                    
@@ -282,8 +296,8 @@ $pageTitle = 'Items';
                                      if (empty ($formErrors)){
 
                                                          $stmt = $con->prepare("INSERT INTO 
-                                                                                 items(Name, Description, Price, Add_Date, Country_Made , Image ,Status , Rating ,Cat_ID, Member_ID)
-                                                                                 VALUES(:zname, :zdesc, :zprice , :zdate , :zcountry , :zimage ,:zstatus, :zrating ,:zcat, :zmember)");
+                                                                                 items(Name, Description, Price, Add_Date, Country_Made , Image ,Status , Rating ,Cat_ID, Member_ID , Tags)
+                                                                                 VALUES(:zname, :zdesc, :zprice , :zdate , :zcountry , :zimage ,:zstatus, :zrating ,:zcat, :zmember , :ztags)");
                                                          $stmt->execute(array(
                                                                     'zname'     => $name,
                                                                     'zdesc'     => $desc,
@@ -294,7 +308,8 @@ $pageTitle = 'Items';
                                                                     'zstatus'   => $status,
                                                                     'zrating'   => '2',
                                                                     'zcat'		=> $cat,
-						                                      'zmember'	=> $member
+						                                            'zmember'   => $member,
+                                                                    'ztags'     =>$tags
                                                             
              
 
@@ -459,6 +474,20 @@ $pageTitle = 'Items';
                                       </div>
                                  </div>
                                        <!-- end category filed -->
+                                        <!--start tags field-->
+                                    <div class="form-group form-group-lg">
+                                        <label class = "col-sm-2 control-label">Tags </label>
+                                        <div class="col-sm-10">
+                                             <input 
+                                                type="text" 
+                                                name="tags" 
+                                                class="form-control" 
+     
+                                                placeholder="Separate Tag With Comma (,)"
+                                                value="<?php echo $item['Tags'] ?>"/>
+                                        </div>
+                                    </div>
+                                       <!-- end Tags filed -->
                                         
                                         <!-- Start submit filed -->
                                    <div class="form-group form-group-lg">
@@ -551,6 +580,8 @@ $pageTitle = 'Items';
                                         $status = $_POST['status'];
                                         $member = $_POST['member'];
                                         $cat    = $_POST['category'];
+                                        $tags    = $_POST['tags'];
+
 
                                         // Validate The Form
                                         $formErrors = array();
@@ -585,8 +616,8 @@ $pageTitle = 'Items';
                                        if (empty($formErrors)) {
         try {
             // Update the database with this info
-            $stmt = $con->prepare("UPDATE items SET Name = ?, Description = ?, Price = ?, Status = ?, Country_Made = ?, Cat_ID = ?, Member_ID = ? WHERE Item_ID = ?");
-            $stmt->execute(array($name, $desc, $price, $status, $country, $cat, $member, $id));
+            $stmt = $con->prepare("UPDATE items SET Name = ?, Description = ?, Price = ?, Status = ?, Country_Made = ?, Cat_ID = ?, Member_ID = ?, Tags = ?  WHERE Item_ID = ?");
+            $stmt->execute(array($name, $desc, $price, $status, $country, $cat, $member, $tags ,$id));
 
             // Echo success message
             $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " Record Updated</div>";
